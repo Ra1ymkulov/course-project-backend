@@ -14,7 +14,7 @@ const start = () => {
       () => {
         console.log(`${new Date()}`);
         console.log(`Server run in: http://localhost:${PORT}`);
-      }
+      },
     );
   } catch (error) {
     console.log(`server crush: ${error}`);
