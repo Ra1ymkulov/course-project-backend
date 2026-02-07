@@ -4,24 +4,23 @@ import bcrypt from "bcrypt";
 import { generateToken } from "../../config/token";
 import { OAuth2Client } from "google-auth-library";
 
-const getUserAll = async (req: Request, res: Response) => {
-  try {
-    const users = await prisma.user.findMany({
-      include: {
-        notification: true,
-      },
-    });
-    res.status(200).json({
-      users,
-      success: true,
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: error,
-    });
-  }
-};
+// const getUser = async (req: Request, res: Response) => {
+//   try {
+//     const id = req.params.id;
+//     const user = await prisma.user.findUnique({
+//       where: { id },
+//     });
+//     res.status(200).json({
+//       user,
+//       success: true,
+//     });
+//   } catch (error) {
+//     res.status(500).json({
+//       success: false,
+//       message: error,
+//     });
+//   }
+// };
 
 const register = async (req: Request, res: Response) => {
   try {
@@ -182,6 +181,5 @@ const googleAuth = async (req: Request, res: Response) => {
 export default {
   register,
   login,
-  getUserAll,
   googleAuth,
 };
