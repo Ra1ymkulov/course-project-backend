@@ -10,4 +10,9 @@
  */
 export type * from './models/User'
 export type * from './models/Notification'
+export type * from './models/Course'
+export type * from './models/Subtitles'
+export type * from './models/Playlist'
+export type * from './models/Lesson'
+export type * from './models/Comment'
 export type * from './commonInputTypes'

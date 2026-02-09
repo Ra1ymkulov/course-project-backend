@@ -27,3 +27,28 @@ export type User = Prisma.UserModel
  * 
  */
 export type Notification = Prisma.NotificationModel
+/**
+ * Model Course
+ * 
+ */
+export type Course = Prisma.CourseModel
+/**
+ * Model Subtitles
+ * 
+ */
+export type Subtitles = Prisma.SubtitlesModel
+/**
+ * Model Playlist
+ * 
+ */
+export type Playlist = Prisma.PlaylistModel
+/**
+ * Model Lesson
+ * 
+ */
+export type Lesson = Prisma.LessonModel
+/**
+ * Model Comment
+ * 
+ */
+export type Comment = Prisma.CommentModel
