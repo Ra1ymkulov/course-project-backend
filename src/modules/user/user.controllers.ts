@@ -9,6 +9,15 @@ const getUser = async (req: Request, res: Response) => {
     }
     const user = await prisma.user.findUnique({
       where: { id },
+      include: {
+        notification: true,
+        course: {
+          include: {
+            playlist: {},
+            subtitles: true,
+          },
+        },
+      },
     });
     res.status(200).json({
       user,

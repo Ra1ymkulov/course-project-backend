@@ -52,7 +52,13 @@ export const AnyNull = runtime.AnyNull
 
 export const ModelName = {
   User: 'User',
-  Notification: 'Notification'
+  Notification: 'Notification',
+  Course: 'Course',
+  Subtitles: 'Subtitles',
+  Playlist: 'Playlist',
+  Lesson: 'Lesson',
+  DetailLesson: 'DetailLesson',
+  Comment: 'Comment'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -95,6 +101,71 @@ export const NotificationScalarFieldEnum = {
 } as const
 
 export type NotificationScalarFieldEnum = (typeof NotificationScalarFieldEnum)[keyof typeof NotificationScalarFieldEnum]
+
+
+export const CourseScalarFieldEnum = {
+  id: 'id',
+  theme: 'theme',
+  description: 'description',
+  title: 'title',
+  userId: 'userId'
+} as const
+
+export type CourseScalarFieldEnum = (typeof CourseScalarFieldEnum)[keyof typeof CourseScalarFieldEnum]
+
+
+export const SubtitlesScalarFieldEnum = {
+  id: 'id',
+  courseId: 'courseId',
+  text: 'text'
+} as const
+
+export type SubtitlesScalarFieldEnum = (typeof SubtitlesScalarFieldEnum)[keyof typeof SubtitlesScalarFieldEnum]
+
+
+export const PlaylistScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  courseId: 'courseId'
+} as const
+
+export type PlaylistScalarFieldEnum = (typeof PlaylistScalarFieldEnum)[keyof typeof PlaylistScalarFieldEnum]
+
+
+export const LessonScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  name: 'name',
+  url: 'url',
+  time: 'time',
+  isLocked: 'isLocked',
+  playlistId: 'playlistId'
+} as const
+
+export type LessonScalarFieldEnum = (typeof LessonScalarFieldEnum)[keyof typeof LessonScalarFieldEnum]
+
+
+export const DetailLessonScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  name: 'name',
+  url: 'url',
+  time: 'time',
+  createdAt: 'createdAt'
+} as const
+
+export type DetailLessonScalarFieldEnum = (typeof DetailLessonScalarFieldEnum)[keyof typeof DetailLessonScalarFieldEnum]
+
+
+export const CommentScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  message: 'message',
+  createdAt: 'createdAt',
+  detailLessonId: 'detailLessonId'
+} as const
+
+export type CommentScalarFieldEnum = (typeof CommentScalarFieldEnum)[keyof typeof CommentScalarFieldEnum]
 
 
 export const SortOrder = {
