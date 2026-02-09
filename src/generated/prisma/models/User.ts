@@ -215,6 +215,7 @@ export type UserWhereInput = {
   role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
   country?: Prisma.StringNullableFilter<"User"> | string | null
   notification?: Prisma.NotificationListRelationFilter
+  course?: Prisma.CourseListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -228,6 +229,7 @@ export type UserOrderByWithRelationInput = {
   role?: Prisma.SortOrder
   country?: Prisma.SortOrderInput | Prisma.SortOrder
   notification?: Prisma.NotificationOrderByRelationAggregateInput
+  course?: Prisma.CourseOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -244,6 +246,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
   country?: Prisma.StringNullableFilter<"User"> | string | null
   notification?: Prisma.NotificationListRelationFilter
+  course?: Prisma.CourseListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -287,6 +290,7 @@ export type UserCreateInput = {
   role?: $Enums.Role
   country?: string | null
   notification?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  course?: Prisma.CourseCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -300,6 +304,7 @@ export type UserUncheckedCreateInput = {
   role?: $Enums.Role
   country?: string | null
   notification?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  course?: Prisma.CourseUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -313,6 +318,7 @@ export type UserUpdateInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notification?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  course?: Prisma.CourseUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -326,6 +332,7 @@ export type UserUncheckedUpdateInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notification?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  course?: Prisma.CourseUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -435,6 +442,20 @@ export type UserUpdateOneRequiredWithoutNotificationNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutNotificationInput, Prisma.UserUpdateWithoutNotificationInput>, Prisma.UserUncheckedUpdateWithoutNotificationInput>
 }
 
+export type UserCreateNestedOneWithoutCourseInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCourseInput, Prisma.UserUncheckedCreateWithoutCourseInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCourseInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutCourseNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCourseInput, Prisma.UserUncheckedCreateWithoutCourseInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCourseInput
+  upsert?: Prisma.UserUpsertWithoutCourseInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCourseInput, Prisma.UserUpdateWithoutCourseInput>, Prisma.UserUncheckedUpdateWithoutCourseInput>
+}
+
 export type UserCreateWithoutNotificationInput = {
   id?: string
   avatar?: string | null
@@ -445,6 +466,7 @@ export type UserCreateWithoutNotificationInput = {
   provider?: $Enums.AuthProvider
   role?: $Enums.Role
   country?: string | null
+  course?: Prisma.CourseCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutNotificationInput = {
@@ -457,6 +479,7 @@ export type UserUncheckedCreateWithoutNotificationInput = {
   provider?: $Enums.AuthProvider
   role?: $Enums.Role
   country?: string | null
+  course?: Prisma.CourseUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutNotificationInput = {
@@ -485,6 +508,7 @@ export type UserUpdateWithoutNotificationInput = {
   provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  course?: Prisma.CourseUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationInput = {
@@ -497,6 +521,75 @@ export type UserUncheckedUpdateWithoutNotificationInput = {
   provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  course?: Prisma.CourseUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutCourseInput = {
+  id?: string
+  avatar?: string | null
+  banner?: string | null
+  name: string
+  email: string
+  password?: string | null
+  provider?: $Enums.AuthProvider
+  role?: $Enums.Role
+  country?: string | null
+  notification?: Prisma.NotificationCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutCourseInput = {
+  id?: string
+  avatar?: string | null
+  banner?: string | null
+  name: string
+  email: string
+  password?: string | null
+  provider?: $Enums.AuthProvider
+  role?: $Enums.Role
+  country?: string | null
+  notification?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutCourseInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutCourseInput, Prisma.UserUncheckedCreateWithoutCourseInput>
+}
+
+export type UserUpsertWithoutCourseInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutCourseInput, Prisma.UserUncheckedUpdateWithoutCourseInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutCourseInput, Prisma.UserUncheckedCreateWithoutCourseInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutCourseInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutCourseInput, Prisma.UserUncheckedUpdateWithoutCourseInput>
+}
+
+export type UserUpdateWithoutCourseInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notification?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutCourseInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notification?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -506,10 +599,12 @@ export type UserUncheckedUpdateWithoutNotificationInput = {
 
 export type UserCountOutputType = {
   notification: number
+  course: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   notification?: boolean | UserCountOutputTypeCountNotificationArgs
+  course?: boolean | UserCountOutputTypeCountCourseArgs
 }
 
 /**
@@ -529,6 +624,13 @@ export type UserCountOutputTypeCountNotificationArgs<ExtArgs extends runtime.Typ
   where?: Prisma.NotificationWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountCourseArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CourseWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -541,6 +643,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   role?: boolean
   country?: boolean
   notification?: boolean | Prisma.User$notificationArgs<ExtArgs>
+  course?: boolean | Prisma.User$courseArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -583,6 +686,7 @@ export type UserSelectScalar = {
 export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "avatar" | "banner" | "name" | "email" | "password" | "provider" | "role" | "country", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   notification?: boolean | Prisma.User$notificationArgs<ExtArgs>
+  course?: boolean | Prisma.User$courseArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -592,6 +696,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   name: "User"
   objects: {
     notification: Prisma.$NotificationPayload<ExtArgs>[]
+    course: Prisma.$CoursePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -998,6 +1103,7 @@ readonly fields: UserFieldRefs;
 export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   notification<T extends Prisma.User$notificationArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$notificationArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  course<T extends Prisma.User$courseArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$courseArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CoursePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1445,6 +1551,30 @@ export type User$notificationArgs<ExtArgs extends runtime.Types.Extensions.Inter
   take?: number
   skip?: number
   distinct?: Prisma.NotificationScalarFieldEnum | Prisma.NotificationScalarFieldEnum[]
+}
+
+/**
+ * User.course
+ */
+export type User$courseArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Course
+   */
+  select?: Prisma.CourseSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Course
+   */
+  omit?: Prisma.CourseOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CourseInclude<ExtArgs> | null
+  where?: Prisma.CourseWhereInput
+  orderBy?: Prisma.CourseOrderByWithRelationInput | Prisma.CourseOrderByWithRelationInput[]
+  cursor?: Prisma.CourseWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CourseScalarFieldEnum | Prisma.CourseScalarFieldEnum[]
 }
 
 /**
