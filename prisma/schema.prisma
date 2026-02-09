@@ -18,6 +18,7 @@ model User {
   role         Role           @default(STUDENT)
   country      String?
   notification Notification[]
+  course        Course[]
 }
 
 enum AuthProvider {
@@ -37,5 +38,62 @@ model Notification {
 enum Role {
   STUDENT
   OWNER
+}
+
+
+model Course {
+  id          String    @id @default(uuid())
+  theme       String
+  description String  
+  title       String
+  subtitles   Subtitles[]
+  playlist    Playlist[]
+  userId      String
+  user        User @relation(fields: [userId], references: [id])
+}
+
+model Subtitles {
+  id          Int            @id @default(autoincrement())
+  courseId    String
+  course      Course @relation(fields: [courseId], references: [id])
+  text        String
+}
+
+model Playlist {
+  id      Int    @id @default(autoincrement())
+  title   String
+  lessons  Lesson[]
+  courseId String
+  course   Course @relation(fields: [courseId], references: [id])
+}
+
+model Lesson {
+  id         String    @id @default(uuid())
+  title      String
+  name       String
+  url        String
+  time       Int
+  isLocked   Boolean @default(true)
+  playlistId Int
+  playlist   Playlist @relation(fields: [playlistId], references: [id])
+}
+
+model DetailLesson {
+  id         String   @id @default(uuid())
+  title      String
+  name       String
+  url        String
+  time       Int
+  comments   Comment[]
+  createdAt DateTime @default(now())
+}
+
+model Comment {
+  id              Int      @id @default(autoincrement())
+  userId          String
+  message         String
+  createdAt       DateTime @default(now())
+  detailLessonId  String
+  detailLesson    DetailLesson @relation(fields: [detailLessonId], references: [id])
 }
 
