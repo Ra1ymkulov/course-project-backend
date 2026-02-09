@@ -216,7 +216,7 @@ export type CommentWhereInput = {
   message?: Prisma.StringFilter<"Comment"> | string
   createdAt?: Prisma.DateTimeFilter<"Comment"> | Date | string
   detailLessonId?: Prisma.StringFilter<"Comment"> | string
-  detailLesson?: Prisma.XOR<Prisma.DetailLessonScalarRelationFilter, Prisma.DetailLessonWhereInput>
+  detailLesson?: Prisma.XOR<Prisma.LessonScalarRelationFilter, Prisma.LessonWhereInput>
 }
 
 export type CommentOrderByWithRelationInput = {
@@ -225,7 +225,7 @@ export type CommentOrderByWithRelationInput = {
   message?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   detailLessonId?: Prisma.SortOrder
-  detailLesson?: Prisma.DetailLessonOrderByWithRelationInput
+  detailLesson?: Prisma.LessonOrderByWithRelationInput
 }
 
 export type CommentWhereUniqueInput = Prisma.AtLeast<{
@@ -237,7 +237,7 @@ export type CommentWhereUniqueInput = Prisma.AtLeast<{
   message?: Prisma.StringFilter<"Comment"> | string
   createdAt?: Prisma.DateTimeFilter<"Comment"> | Date | string
   detailLessonId?: Prisma.StringFilter<"Comment"> | string
-  detailLesson?: Prisma.XOR<Prisma.DetailLessonScalarRelationFilter, Prisma.DetailLessonWhereInput>
+  detailLesson?: Prisma.XOR<Prisma.LessonScalarRelationFilter, Prisma.LessonWhereInput>
 }, "id">
 
 export type CommentOrderByWithAggregationInput = {
@@ -268,7 +268,7 @@ export type CommentCreateInput = {
   userId: string
   message: string
   createdAt?: Date | string
-  detailLesson: Prisma.DetailLessonCreateNestedOneWithoutCommentsInput
+  detailLesson: Prisma.LessonCreateNestedOneWithoutCommentsInput
 }
 
 export type CommentUncheckedCreateInput = {
@@ -283,7 +283,7 @@ export type CommentUpdateInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   message?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  detailLesson?: Prisma.DetailLessonUpdateOneRequiredWithoutCommentsNestedInput
+  detailLesson?: Prisma.LessonUpdateOneRequiredWithoutCommentsNestedInput
 }
 
 export type CommentUncheckedUpdateInput = {
@@ -485,7 +485,7 @@ export type CommentSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   message?: boolean
   createdAt?: boolean
   detailLessonId?: boolean
-  detailLesson?: boolean | Prisma.DetailLessonDefaultArgs<ExtArgs>
+  detailLesson?: boolean | Prisma.LessonDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["comment"]>
 
 export type CommentSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -494,7 +494,7 @@ export type CommentSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   message?: boolean
   createdAt?: boolean
   detailLessonId?: boolean
-  detailLesson?: boolean | Prisma.DetailLessonDefaultArgs<ExtArgs>
+  detailLesson?: boolean | Prisma.LessonDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["comment"]>
 
 export type CommentSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -503,7 +503,7 @@ export type CommentSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   message?: boolean
   createdAt?: boolean
   detailLessonId?: boolean
-  detailLesson?: boolean | Prisma.DetailLessonDefaultArgs<ExtArgs>
+  detailLesson?: boolean | Prisma.LessonDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["comment"]>
 
 export type CommentSelectScalar = {
@@ -516,19 +516,19 @@ export type CommentSelectScalar = {
 
 export type CommentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "message" | "createdAt" | "detailLessonId", ExtArgs["result"]["comment"]>
 export type CommentInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  detailLesson?: boolean | Prisma.DetailLessonDefaultArgs<ExtArgs>
+  detailLesson?: boolean | Prisma.LessonDefaultArgs<ExtArgs>
 }
 export type CommentIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  detailLesson?: boolean | Prisma.DetailLessonDefaultArgs<ExtArgs>
+  detailLesson?: boolean | Prisma.LessonDefaultArgs<ExtArgs>
 }
 export type CommentIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  detailLesson?: boolean | Prisma.DetailLessonDefaultArgs<ExtArgs>
+  detailLesson?: boolean | Prisma.LessonDefaultArgs<ExtArgs>
 }
 
 export type $CommentPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Comment"
   objects: {
-    detailLesson: Prisma.$DetailLessonPayload<ExtArgs>
+    detailLesson: Prisma.$LessonPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -930,7 +930,7 @@ readonly fields: CommentFieldRefs;
  */
 export interface Prisma__CommentClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  detailLesson<T extends Prisma.DetailLessonDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.DetailLessonDefaultArgs<ExtArgs>>): Prisma.Prisma__DetailLessonClient<runtime.Types.Result.GetResult<Prisma.$DetailLessonPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  detailLesson<T extends Prisma.LessonDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.LessonDefaultArgs<ExtArgs>>): Prisma.Prisma__LessonClient<runtime.Types.Result.GetResult<Prisma.$LessonPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

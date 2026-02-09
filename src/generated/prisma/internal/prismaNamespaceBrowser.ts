@@ -57,7 +57,6 @@ export const ModelName = {
   Subtitles: 'Subtitles',
   Playlist: 'Playlist',
   Lesson: 'Lesson',
-  DetailLesson: 'DetailLesson',
   Comment: 'Comment'
 } as const
 
@@ -139,22 +138,11 @@ export const LessonScalarFieldEnum = {
   url: 'url',
   time: 'time',
   isLocked: 'isLocked',
-  playlistId: 'playlistId'
-} as const
-
-export type LessonScalarFieldEnum = (typeof LessonScalarFieldEnum)[keyof typeof LessonScalarFieldEnum]
-
-
-export const DetailLessonScalarFieldEnum = {
-  id: 'id',
-  title: 'title',
-  name: 'name',
-  url: 'url',
-  time: 'time',
+  playlistId: 'playlistId',
   createdAt: 'createdAt'
 } as const
 
-export type DetailLessonScalarFieldEnum = (typeof DetailLessonScalarFieldEnum)[keyof typeof DetailLessonScalarFieldEnum]
+export type LessonScalarFieldEnum = (typeof LessonScalarFieldEnum)[keyof typeof LessonScalarFieldEnum]
 
 
 export const CommentScalarFieldEnum = {

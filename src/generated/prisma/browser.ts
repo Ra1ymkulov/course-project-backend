@@ -48,11 +48,6 @@ export type Playlist = Prisma.PlaylistModel
  */
 export type Lesson = Prisma.LessonModel
 /**
- * Model DetailLesson
- * 
- */
-export type DetailLesson = Prisma.DetailLessonModel
-/**
  * Model Comment
  * 
  */

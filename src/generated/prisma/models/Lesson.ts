@@ -44,6 +44,7 @@ export type LessonMinAggregateOutputType = {
   time: number | null
   isLocked: boolean | null
   playlistId: number | null
+  createdAt: Date | null
 }
 
 export type LessonMaxAggregateOutputType = {
@@ -54,6 +55,7 @@ export type LessonMaxAggregateOutputType = {
   time: number | null
   isLocked: boolean | null
   playlistId: number | null
+  createdAt: Date | null
 }
 
 export type LessonCountAggregateOutputType = {
@@ -64,6 +66,7 @@ export type LessonCountAggregateOutputType = {
   time: number
   isLocked: number
   playlistId: number
+  createdAt: number
   _all: number
 }
 
@@ -86,6 +89,7 @@ export type LessonMinAggregateInputType = {
   time?: true
   isLocked?: true
   playlistId?: true
+  createdAt?: true
 }
 
 export type LessonMaxAggregateInputType = {
@@ -96,6 +100,7 @@ export type LessonMaxAggregateInputType = {
   time?: true
   isLocked?: true
   playlistId?: true
+  createdAt?: true
 }
 
 export type LessonCountAggregateInputType = {
@@ -106,6 +111,7 @@ export type LessonCountAggregateInputType = {
   time?: true
   isLocked?: true
   playlistId?: true
+  createdAt?: true
   _all?: true
 }
 
@@ -203,6 +209,7 @@ export type LessonGroupByOutputType = {
   time: number
   isLocked: boolean
   playlistId: number
+  createdAt: Date
   _count: LessonCountAggregateOutputType | null
   _avg: LessonAvgAggregateOutputType | null
   _sum: LessonSumAggregateOutputType | null
@@ -236,7 +243,9 @@ export type LessonWhereInput = {
   time?: Prisma.IntFilter<"Lesson"> | number
   isLocked?: Prisma.BoolFilter<"Lesson"> | boolean
   playlistId?: Prisma.IntFilter<"Lesson"> | number
+  createdAt?: Prisma.DateTimeFilter<"Lesson"> | Date | string
   playlist?: Prisma.XOR<Prisma.PlaylistScalarRelationFilter, Prisma.PlaylistWhereInput>
+  comments?: Prisma.CommentListRelationFilter
 }
 
 export type LessonOrderByWithRelationInput = {
@@ -247,7 +256,9 @@ export type LessonOrderByWithRelationInput = {
   time?: Prisma.SortOrder
   isLocked?: Prisma.SortOrder
   playlistId?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
   playlist?: Prisma.PlaylistOrderByWithRelationInput
+  comments?: Prisma.CommentOrderByRelationAggregateInput
 }
 
 export type LessonWhereUniqueInput = Prisma.AtLeast<{
@@ -261,7 +272,9 @@ export type LessonWhereUniqueInput = Prisma.AtLeast<{
   time?: Prisma.IntFilter<"Lesson"> | number
   isLocked?: Prisma.BoolFilter<"Lesson"> | boolean
   playlistId?: Prisma.IntFilter<"Lesson"> | number
+  createdAt?: Prisma.DateTimeFilter<"Lesson"> | Date | string
   playlist?: Prisma.XOR<Prisma.PlaylistScalarRelationFilter, Prisma.PlaylistWhereInput>
+  comments?: Prisma.CommentListRelationFilter
 }, "id">
 
 export type LessonOrderByWithAggregationInput = {
@@ -272,6 +285,7 @@ export type LessonOrderByWithAggregationInput = {
   time?: Prisma.SortOrder
   isLocked?: Prisma.SortOrder
   playlistId?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
   _count?: Prisma.LessonCountOrderByAggregateInput
   _avg?: Prisma.LessonAvgOrderByAggregateInput
   _max?: Prisma.LessonMaxOrderByAggregateInput
@@ -290,6 +304,7 @@ export type LessonScalarWhereWithAggregatesInput = {
   time?: Prisma.IntWithAggregatesFilter<"Lesson"> | number
   isLocked?: Prisma.BoolWithAggregatesFilter<"Lesson"> | boolean
   playlistId?: Prisma.IntWithAggregatesFilter<"Lesson"> | number
+  createdAt?: Prisma.DateTimeWithAggregatesFilter<"Lesson"> | Date | string
 }
 
 export type LessonCreateInput = {
@@ -299,7 +314,9 @@ export type LessonCreateInput = {
   url: string
   time: number
   isLocked?: boolean
+  createdAt?: Date | string
   playlist: Prisma.PlaylistCreateNestedOneWithoutLessonsInput
+  comments?: Prisma.CommentCreateNestedManyWithoutDetailLessonInput
 }
 
 export type LessonUncheckedCreateInput = {
@@ -310,6 +327,8 @@ export type LessonUncheckedCreateInput = {
   time: number
   isLocked?: boolean
   playlistId: number
+  createdAt?: Date | string
+  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutDetailLessonInput
 }
 
 export type LessonUpdateInput = {
@@ -319,7 +338,9 @@ export type LessonUpdateInput = {
   url?: Prisma.StringFieldUpdateOperationsInput | string
   time?: Prisma.IntFieldUpdateOperationsInput | number
   isLocked?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   playlist?: Prisma.PlaylistUpdateOneRequiredWithoutLessonsNestedInput
+  comments?: Prisma.CommentUpdateManyWithoutDetailLessonNestedInput
 }
 
 export type LessonUncheckedUpdateInput = {
@@ -330,6 +351,8 @@ export type LessonUncheckedUpdateInput = {
   time?: Prisma.IntFieldUpdateOperationsInput | number
   isLocked?: Prisma.BoolFieldUpdateOperationsInput | boolean
   playlistId?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  comments?: Prisma.CommentUncheckedUpdateManyWithoutDetailLessonNestedInput
 }
 
 export type LessonCreateManyInput = {
@@ -340,6 +363,7 @@ export type LessonCreateManyInput = {
   time: number
   isLocked?: boolean
   playlistId: number
+  createdAt?: Date | string
 }
 
 export type LessonUpdateManyMutationInput = {
@@ -349,6 +373,7 @@ export type LessonUpdateManyMutationInput = {
   url?: Prisma.StringFieldUpdateOperationsInput | string
   time?: Prisma.IntFieldUpdateOperationsInput | number
   isLocked?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type LessonUncheckedUpdateManyInput = {
@@ -359,6 +384,7 @@ export type LessonUncheckedUpdateManyInput = {
   time?: Prisma.IntFieldUpdateOperationsInput | number
   isLocked?: Prisma.BoolFieldUpdateOperationsInput | boolean
   playlistId?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type LessonListRelationFilter = {
@@ -379,6 +405,7 @@ export type LessonCountOrderByAggregateInput = {
   time?: Prisma.SortOrder
   isLocked?: Prisma.SortOrder
   playlistId?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
 }
 
 export type LessonAvgOrderByAggregateInput = {
@@ -394,6 +421,7 @@ export type LessonMaxOrderByAggregateInput = {
   time?: Prisma.SortOrder
   isLocked?: Prisma.SortOrder
   playlistId?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
 }
 
 export type LessonMinOrderByAggregateInput = {
@@ -404,11 +432,17 @@ export type LessonMinOrderByAggregateInput = {
   time?: Prisma.SortOrder
   isLocked?: Prisma.SortOrder
   playlistId?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
 }
 
 export type LessonSumOrderByAggregateInput = {
   time?: Prisma.SortOrder
   playlistId?: Prisma.SortOrder
+}
+
+export type LessonScalarRelationFilter = {
+  is?: Prisma.LessonWhereInput
+  isNot?: Prisma.LessonWhereInput
 }
 
 export type LessonCreateNestedManyWithoutPlaylistInput = {
@@ -453,6 +487,20 @@ export type LessonUncheckedUpdateManyWithoutPlaylistNestedInput = {
   deleteMany?: Prisma.LessonScalarWhereInput | Prisma.LessonScalarWhereInput[]
 }
 
+export type LessonCreateNestedOneWithoutCommentsInput = {
+  create?: Prisma.XOR<Prisma.LessonCreateWithoutCommentsInput, Prisma.LessonUncheckedCreateWithoutCommentsInput>
+  connectOrCreate?: Prisma.LessonCreateOrConnectWithoutCommentsInput
+  connect?: Prisma.LessonWhereUniqueInput
+}
+
+export type LessonUpdateOneRequiredWithoutCommentsNestedInput = {
+  create?: Prisma.XOR<Prisma.LessonCreateWithoutCommentsInput, Prisma.LessonUncheckedCreateWithoutCommentsInput>
+  connectOrCreate?: Prisma.LessonCreateOrConnectWithoutCommentsInput
+  upsert?: Prisma.LessonUpsertWithoutCommentsInput
+  connect?: Prisma.LessonWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.LessonUpdateToOneWithWhereWithoutCommentsInput, Prisma.LessonUpdateWithoutCommentsInput>, Prisma.LessonUncheckedUpdateWithoutCommentsInput>
+}
+
 export type LessonCreateWithoutPlaylistInput = {
   id?: string
   title: string
@@ -460,6 +508,8 @@ export type LessonCreateWithoutPlaylistInput = {
   url: string
   time: number
   isLocked?: boolean
+  createdAt?: Date | string
+  comments?: Prisma.CommentCreateNestedManyWithoutDetailLessonInput
 }
 
 export type LessonUncheckedCreateWithoutPlaylistInput = {
@@ -469,6 +519,8 @@ export type LessonUncheckedCreateWithoutPlaylistInput = {
   url: string
   time: number
   isLocked?: boolean
+  createdAt?: Date | string
+  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutDetailLessonInput
 }
 
 export type LessonCreateOrConnectWithoutPlaylistInput = {
@@ -508,6 +560,67 @@ export type LessonScalarWhereInput = {
   time?: Prisma.IntFilter<"Lesson"> | number
   isLocked?: Prisma.BoolFilter<"Lesson"> | boolean
   playlistId?: Prisma.IntFilter<"Lesson"> | number
+  createdAt?: Prisma.DateTimeFilter<"Lesson"> | Date | string
+}
+
+export type LessonCreateWithoutCommentsInput = {
+  id?: string
+  title: string
+  name: string
+  url: string
+  time: number
+  isLocked?: boolean
+  createdAt?: Date | string
+  playlist: Prisma.PlaylistCreateNestedOneWithoutLessonsInput
+}
+
+export type LessonUncheckedCreateWithoutCommentsInput = {
+  id?: string
+  title: string
+  name: string
+  url: string
+  time: number
+  isLocked?: boolean
+  playlistId: number
+  createdAt?: Date | string
+}
+
+export type LessonCreateOrConnectWithoutCommentsInput = {
+  where: Prisma.LessonWhereUniqueInput
+  create: Prisma.XOR<Prisma.LessonCreateWithoutCommentsInput, Prisma.LessonUncheckedCreateWithoutCommentsInput>
+}
+
+export type LessonUpsertWithoutCommentsInput = {
+  update: Prisma.XOR<Prisma.LessonUpdateWithoutCommentsInput, Prisma.LessonUncheckedUpdateWithoutCommentsInput>
+  create: Prisma.XOR<Prisma.LessonCreateWithoutCommentsInput, Prisma.LessonUncheckedCreateWithoutCommentsInput>
+  where?: Prisma.LessonWhereInput
+}
+
+export type LessonUpdateToOneWithWhereWithoutCommentsInput = {
+  where?: Prisma.LessonWhereInput
+  data: Prisma.XOR<Prisma.LessonUpdateWithoutCommentsInput, Prisma.LessonUncheckedUpdateWithoutCommentsInput>
+}
+
+export type LessonUpdateWithoutCommentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  url?: Prisma.StringFieldUpdateOperationsInput | string
+  time?: Prisma.IntFieldUpdateOperationsInput | number
+  isLocked?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  playlist?: Prisma.PlaylistUpdateOneRequiredWithoutLessonsNestedInput
+}
+
+export type LessonUncheckedUpdateWithoutCommentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  url?: Prisma.StringFieldUpdateOperationsInput | string
+  time?: Prisma.IntFieldUpdateOperationsInput | number
+  isLocked?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  playlistId?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type LessonCreateManyPlaylistInput = {
@@ -517,6 +630,7 @@ export type LessonCreateManyPlaylistInput = {
   url: string
   time: number
   isLocked?: boolean
+  createdAt?: Date | string
 }
 
 export type LessonUpdateWithoutPlaylistInput = {
@@ -526,6 +640,8 @@ export type LessonUpdateWithoutPlaylistInput = {
   url?: Prisma.StringFieldUpdateOperationsInput | string
   time?: Prisma.IntFieldUpdateOperationsInput | number
   isLocked?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  comments?: Prisma.CommentUpdateManyWithoutDetailLessonNestedInput
 }
 
 export type LessonUncheckedUpdateWithoutPlaylistInput = {
@@ -535,6 +651,8 @@ export type LessonUncheckedUpdateWithoutPlaylistInput = {
   url?: Prisma.StringFieldUpdateOperationsInput | string
   time?: Prisma.IntFieldUpdateOperationsInput | number
   isLocked?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  comments?: Prisma.CommentUncheckedUpdateManyWithoutDetailLessonNestedInput
 }
 
 export type LessonUncheckedUpdateManyWithoutPlaylistInput = {
@@ -544,8 +662,38 @@ export type LessonUncheckedUpdateManyWithoutPlaylistInput = {
   url?: Prisma.StringFieldUpdateOperationsInput | string
   time?: Prisma.IntFieldUpdateOperationsInput | number
   isLocked?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
+
+/**
+ * Count Type LessonCountOutputType
+ */
+
+export type LessonCountOutputType = {
+  comments: number
+}
+
+export type LessonCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  comments?: boolean | LessonCountOutputTypeCountCommentsArgs
+}
+
+/**
+ * LessonCountOutputType without action
+ */
+export type LessonCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the LessonCountOutputType
+   */
+  select?: Prisma.LessonCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * LessonCountOutputType without action
+ */
+export type LessonCountOutputTypeCountCommentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CommentWhereInput
+}
 
 
 export type LessonSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -556,7 +704,10 @@ export type LessonSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   time?: boolean
   isLocked?: boolean
   playlistId?: boolean
+  createdAt?: boolean
   playlist?: boolean | Prisma.PlaylistDefaultArgs<ExtArgs>
+  comments?: boolean | Prisma.Lesson$commentsArgs<ExtArgs>
+  _count?: boolean | Prisma.LessonCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["lesson"]>
 
 export type LessonSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -567,6 +718,7 @@ export type LessonSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   time?: boolean
   isLocked?: boolean
   playlistId?: boolean
+  createdAt?: boolean
   playlist?: boolean | Prisma.PlaylistDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["lesson"]>
 
@@ -578,6 +730,7 @@ export type LessonSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   time?: boolean
   isLocked?: boolean
   playlistId?: boolean
+  createdAt?: boolean
   playlist?: boolean | Prisma.PlaylistDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["lesson"]>
 
@@ -589,11 +742,14 @@ export type LessonSelectScalar = {
   time?: boolean
   isLocked?: boolean
   playlistId?: boolean
+  createdAt?: boolean
 }
 
-export type LessonOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "name" | "url" | "time" | "isLocked" | "playlistId", ExtArgs["result"]["lesson"]>
+export type LessonOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "name" | "url" | "time" | "isLocked" | "playlistId" | "createdAt", ExtArgs["result"]["lesson"]>
 export type LessonInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   playlist?: boolean | Prisma.PlaylistDefaultArgs<ExtArgs>
+  comments?: boolean | Prisma.Lesson$commentsArgs<ExtArgs>
+  _count?: boolean | Prisma.LessonCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type LessonIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   playlist?: boolean | Prisma.PlaylistDefaultArgs<ExtArgs>
@@ -606,6 +762,7 @@ export type $LessonPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
   name: "Lesson"
   objects: {
     playlist: Prisma.$PlaylistPayload<ExtArgs>
+    comments: Prisma.$CommentPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -615,6 +772,7 @@ export type $LessonPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     time: number
     isLocked: boolean
     playlistId: number
+    createdAt: Date
   }, ExtArgs["result"]["lesson"]>
   composites: {}
 }
@@ -1010,6 +1168,7 @@ readonly fields: LessonFieldRefs;
 export interface Prisma__LessonClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   playlist<T extends Prisma.PlaylistDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PlaylistDefaultArgs<ExtArgs>>): Prisma.Prisma__PlaylistClient<runtime.Types.Result.GetResult<Prisma.$PlaylistPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  comments<T extends Prisma.Lesson$commentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Lesson$commentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1046,6 +1205,7 @@ export interface LessonFieldRefs {
   readonly time: Prisma.FieldRef<"Lesson", 'Int'>
   readonly isLocked: Prisma.FieldRef<"Lesson", 'Boolean'>
   readonly playlistId: Prisma.FieldRef<"Lesson", 'Int'>
+  readonly createdAt: Prisma.FieldRef<"Lesson", 'DateTime'>
 }
     
 
@@ -1439,6 +1599,30 @@ export type LessonDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Intern
    * Limit how many Lessons to delete.
    */
   limit?: number
+}
+
+/**
+ * Lesson.comments
+ */
+export type Lesson$commentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Comment
+   */
+  select?: Prisma.CommentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Comment
+   */
+  omit?: Prisma.CommentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CommentInclude<ExtArgs> | null
+  where?: Prisma.CommentWhereInput
+  orderBy?: Prisma.CommentOrderByWithRelationInput | Prisma.CommentOrderByWithRelationInput[]
+  cursor?: Prisma.CommentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CommentScalarFieldEnum | Prisma.CommentScalarFieldEnum[]
 }
 
 /**

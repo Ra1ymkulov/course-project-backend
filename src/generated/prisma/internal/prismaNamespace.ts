@@ -390,7 +390,6 @@ export const ModelName = {
   Subtitles: 'Subtitles',
   Playlist: 'Playlist',
   Lesson: 'Lesson',
-  DetailLesson: 'DetailLesson',
   Comment: 'Comment'
 } as const
 
@@ -407,7 +406,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "notification" | "course" | "subtitles" | "playlist" | "lesson" | "detailLesson" | "comment"
+    modelProps: "user" | "notification" | "course" | "subtitles" | "playlist" | "lesson" | "comment"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -855,80 +854,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
-    DetailLesson: {
-      payload: Prisma.$DetailLessonPayload<ExtArgs>
-      fields: Prisma.DetailLessonFieldRefs
-      operations: {
-        findUnique: {
-          args: Prisma.DetailLessonFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DetailLessonPayload> | null
-        }
-        findUniqueOrThrow: {
-          args: Prisma.DetailLessonFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DetailLessonPayload>
-        }
-        findFirst: {
-          args: Prisma.DetailLessonFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DetailLessonPayload> | null
-        }
-        findFirstOrThrow: {
-          args: Prisma.DetailLessonFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DetailLessonPayload>
-        }
-        findMany: {
-          args: Prisma.DetailLessonFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DetailLessonPayload>[]
-        }
-        create: {
-          args: Prisma.DetailLessonCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DetailLessonPayload>
-        }
-        createMany: {
-          args: Prisma.DetailLessonCreateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        createManyAndReturn: {
-          args: Prisma.DetailLessonCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DetailLessonPayload>[]
-        }
-        delete: {
-          args: Prisma.DetailLessonDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DetailLessonPayload>
-        }
-        update: {
-          args: Prisma.DetailLessonUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DetailLessonPayload>
-        }
-        deleteMany: {
-          args: Prisma.DetailLessonDeleteManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateMany: {
-          args: Prisma.DetailLessonUpdateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.DetailLessonUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DetailLessonPayload>[]
-        }
-        upsert: {
-          args: Prisma.DetailLessonUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DetailLessonPayload>
-        }
-        aggregate: {
-          args: Prisma.DetailLessonAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateDetailLesson>
-        }
-        groupBy: {
-          args: Prisma.DetailLessonGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.DetailLessonGroupByOutputType>[]
-        }
-        count: {
-          args: Prisma.DetailLessonCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.DetailLessonCountAggregateOutputType> | number
-        }
-      }
-    }
     Comment: {
       payload: Prisma.$CommentPayload<ExtArgs>
       fields: Prisma.CommentFieldRefs
@@ -1104,22 +1029,11 @@ export const LessonScalarFieldEnum = {
   url: 'url',
   time: 'time',
   isLocked: 'isLocked',
-  playlistId: 'playlistId'
-} as const
-
-export type LessonScalarFieldEnum = (typeof LessonScalarFieldEnum)[keyof typeof LessonScalarFieldEnum]
-
-
-export const DetailLessonScalarFieldEnum = {
-  id: 'id',
-  title: 'title',
-  name: 'name',
-  url: 'url',
-  time: 'time',
+  playlistId: 'playlistId',
   createdAt: 'createdAt'
 } as const
 
-export type DetailLessonScalarFieldEnum = (typeof DetailLessonScalarFieldEnum)[keyof typeof DetailLessonScalarFieldEnum]
+export type LessonScalarFieldEnum = (typeof LessonScalarFieldEnum)[keyof typeof LessonScalarFieldEnum]
 
 
 export const CommentScalarFieldEnum = {
@@ -1354,7 +1268,6 @@ export type GlobalOmitConfig = {
   subtitles?: Prisma.SubtitlesOmit
   playlist?: Prisma.PlaylistOmit
   lesson?: Prisma.LessonOmit
-  detailLesson?: Prisma.DetailLessonOmit
   comment?: Prisma.CommentOmit
 }
 
