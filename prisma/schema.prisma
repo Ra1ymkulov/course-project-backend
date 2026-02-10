@@ -18,9 +18,11 @@ model User {
   role         Role           @default(STUDENT)
   country      String?
   notification Notification[]
-  course        Course[]
-}
+  course       Course[]
 
+  chats        ChatParticipant[]
+  message      Message[]
+}
 enum AuthProvider {
   LOCAL
   GOOGLE
@@ -39,7 +41,6 @@ enum Role {
   STUDENT
   OWNER
 }
-
 
 model Course {
   id          String    @id @default(uuid())
@@ -87,5 +88,39 @@ model Comment {
   createdAt       DateTime @default(now())
   detailLessonId  String
   detailLesson    Lesson @relation(fields: [detailLessonId], references: [id])
+}
+
+enum ChatType {
+  PRIVATE
+  GROUP
+}
+model Chat {
+  id           String            @id @default(uuid())
+  type         ChatType
+  name         String?
+  participants ChatParticipant[]
+  messages     Message[]
+  createdAt    DateTime          @default(now())
+}
+model ChatParticipant {
+  id     String @id @default(uuid())
+  chatId String
+  userId String
+
+  chat Chat @relation(fields: [chatId], references: [id])
+  user User @relation(fields: [userId], references: [id])
+
+  @@unique([chatId, userId])
+}
+
+model Message {
+  id        String   @id @default(uuid())
+  chatId   String
+  userId   String
+  text     String
+  createdAt DateTime @default(now())
+
+  chat Chat @relation(fields: [chatId], references: [id])
+  user User @relation(fields: [userId], references: [id])
 }
 

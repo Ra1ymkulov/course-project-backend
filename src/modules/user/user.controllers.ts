@@ -13,8 +13,16 @@ const getUser = async (req: Request, res: Response) => {
         notification: true,
         course: {
           include: {
-            playlist: {},
             subtitles: true,
+            playlist: {
+              include: {
+                lessons: {
+                  include: {
+                    comments: true,
+                  },
+                },
+              },
+            },
           },
         },
       },
@@ -30,6 +38,21 @@ const getUser = async (req: Request, res: Response) => {
     });
   }
 };
+const getAllUser = async (req: Request, res: Response) => {
+  try {
+    const users = await prisma.user.findMany();
+    res.status(200).json({
+      users,
+      success: true,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error,
+    });
+  }
+};
 export default {
   getUser,
+  getAllUser,
 };
