@@ -52,12 +52,13 @@ export const AnyNull = runtime.AnyNull
 
 export const ModelName = {
   User: 'User',
+  FavoriteCourse: 'FavoriteCourse',
   Notification: 'Notification',
   Course: 'Course',
-  Subtitles: 'Subtitles',
-  Playlist: 'Playlist',
-  Lesson: 'Lesson',
-  Comment: 'Comment'
+  Category: 'Category',
+  Lessons: 'Lessons',
+  Video: 'Video',
+  Comments: 'Comments'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -83,12 +84,22 @@ export const UserScalarFieldEnum = {
   name: 'name',
   email: 'email',
   password: 'password',
+  country: 'country',
   provider: 'provider',
-  role: 'role',
-  country: 'country'
+  role: 'role'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+export const FavoriteCourseScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  courseId: 'courseId',
+  createdAt: 'createdAt'
+} as const
+
+export type FavoriteCourseScalarFieldEnum = (typeof FavoriteCourseScalarFieldEnum)[keyof typeof FavoriteCourseScalarFieldEnum]
 
 
 export const NotificationScalarFieldEnum = {
@@ -107,53 +118,59 @@ export const CourseScalarFieldEnum = {
   theme: 'theme',
   description: 'description',
   title: 'title',
-  userId: 'userId'
+  section: 'section',
+  bottomText: 'bottomText',
+  image: 'image',
+  price: 'price',
+  userId: 'userId',
+  createdAt: 'createdAt',
+  category: 'category'
 } as const
 
 export type CourseScalarFieldEnum = (typeof CourseScalarFieldEnum)[keyof typeof CourseScalarFieldEnum]
 
 
-export const SubtitlesScalarFieldEnum = {
+export const CategoryScalarFieldEnum = {
   id: 'id',
-  courseId: 'courseId',
-  text: 'text'
+  type: 'type',
+  name: 'name'
 } as const
 
-export type SubtitlesScalarFieldEnum = (typeof SubtitlesScalarFieldEnum)[keyof typeof SubtitlesScalarFieldEnum]
+export type CategoryScalarFieldEnum = (typeof CategoryScalarFieldEnum)[keyof typeof CategoryScalarFieldEnum]
 
 
-export const PlaylistScalarFieldEnum = {
+export const LessonsScalarFieldEnum = {
   id: 'id',
   title: 'title',
   courseId: 'courseId'
 } as const
 
-export type PlaylistScalarFieldEnum = (typeof PlaylistScalarFieldEnum)[keyof typeof PlaylistScalarFieldEnum]
+export type LessonsScalarFieldEnum = (typeof LessonsScalarFieldEnum)[keyof typeof LessonsScalarFieldEnum]
 
 
-export const LessonScalarFieldEnum = {
+export const VideoScalarFieldEnum = {
   id: 'id',
   title: 'title',
-  name: 'name',
-  url: 'url',
-  time: 'time',
-  isLocked: 'isLocked',
-  playlistId: 'playlistId',
+  preview: 'preview',
+  videoUrl: 'videoUrl',
+  duration: 'duration',
+  lessonsId: 'lessonsId',
+  views: 'views'
+} as const
+
+export type VideoScalarFieldEnum = (typeof VideoScalarFieldEnum)[keyof typeof VideoScalarFieldEnum]
+
+
+export const CommentsScalarFieldEnum = {
+  id: 'id',
+  text: 'text',
+  timestamp: 'timestamp',
+  userId: 'userId',
+  videoId: 'videoId',
   createdAt: 'createdAt'
 } as const
 
-export type LessonScalarFieldEnum = (typeof LessonScalarFieldEnum)[keyof typeof LessonScalarFieldEnum]
-
-
-export const CommentScalarFieldEnum = {
-  id: 'id',
-  userId: 'userId',
-  message: 'message',
-  createdAt: 'createdAt',
-  detailLessonId: 'detailLessonId'
-} as const
-
-export type CommentScalarFieldEnum = (typeof CommentScalarFieldEnum)[keyof typeof CommentScalarFieldEnum]
+export type CommentsScalarFieldEnum = (typeof CommentsScalarFieldEnum)[keyof typeof CommentsScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -162,6 +179,13 @@ export const SortOrder = {
 } as const
 
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+export const JsonNullValueInput = {
+  JsonNull: JsonNull
+} as const
+
+export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
 
 
 export const QueryMode = {
@@ -178,4 +202,13 @@ export const NullsOrder = {
 } as const
 
 export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+export const JsonNullValueFilter = {
+  DbNull: DbNull,
+  JsonNull: JsonNull,
+  AnyNull: AnyNull
+} as const
+
+export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 

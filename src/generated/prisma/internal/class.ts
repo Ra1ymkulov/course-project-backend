@@ -20,7 +20,7 @@ const config: runtime.GetPrismaClientConfig = {
   "clientVersion": "7.3.0",
   "engineVersion": "9d6ad21cbbceab97458517b147a6a09ff43aa735",
   "activeProvider": "postgresql",
-  "inlineSchema": "generator client {\n  provider = \"prisma-client\"\n  output   = \"../src/generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n\nmodel User {\n  id           String         @id @default(uuid())\n  avatar       String?\n  banner       String?\n  name         String\n  email        String         @unique\n  password     String?\n  provider     AuthProvider   @default(LOCAL)\n  role         Role           @default(STUDENT)\n  country      String?\n  notification Notification[]\n  course       Course[]\n}\n\nenum AuthProvider {\n  LOCAL\n  GOOGLE\n}\n\nmodel Notification {\n  id        Int      @id @default(autoincrement())\n  userId    String\n  message   String\n  read      Boolean  @default(false)\n  createdAt DateTime @default(now())\n  user      User     @relation(fields: [userId], references: [id])\n}\n\nenum Role {\n  STUDENT\n  OWNER\n}\n\nmodel Course {\n  id          String      @id @default(uuid())\n  theme       String\n  description String\n  title       String\n  subtitles   Subtitles[]\n  playlist    Playlist[]\n  userId      String\n  user        User        @relation(fields: [userId], references: [id])\n}\n\nmodel Subtitles {\n  id       Int    @id @default(autoincrement())\n  courseId String\n  course   Course @relation(fields: [courseId], references: [id])\n  text     String\n}\n\nmodel Playlist {\n  id       Int      @id @default(autoincrement())\n  title    String\n  lessons  Lesson[]\n  courseId String\n  course   Course   @relation(fields: [courseId], references: [id])\n}\n\nmodel Lesson {\n  id         String    @id @default(uuid())\n  title      String\n  name       String\n  url        String\n  time       Int\n  isLocked   Boolean   @default(true)\n  playlistId Int\n  playlist   Playlist  @relation(fields: [playlistId], references: [id])\n  createdAt  DateTime  @default(now())\n  comments   Comment[]\n}\n\nmodel Comment {\n  id             Int      @id @default(autoincrement())\n  userId         String\n  message        String\n  createdAt      DateTime @default(now())\n  detailLessonId String\n  detailLesson   Lesson   @relation(fields: [detailLessonId], references: [id])\n}\n",
+  "inlineSchema": "generator client {\n  provider = \"prisma-client\"\n  output   = \"../src/generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n\nmodel User {\n  id       String  @id @default(uuid())\n  avatar   String?\n  banner   String?\n  name     String\n  email    String  @unique\n  password String?\n  country  String?\n\n  notification   Notification[]\n  course         Course[]\n  comments       Comments[]\n  favoriteCourse FavoriteCourse[]\n\n  provider AuthProvider @default(LOCAL)\n  role     Role         @default(STUDENT)\n}\n\nenum AuthProvider {\n  LOCAL\n  GOOGLE\n}\n\nenum Role {\n  STUDENT\n  OWNER\n}\n\nmodel FavoriteCourse {\n  id       Int    @id @default(autoincrement())\n  userId   String\n  courseId String\n\n  createdAt DateTime @default(now())\n\n  user   User   @relation(fields: [userId], references: [id])\n  course Course @relation(fields: [courseId], references: [id])\n\n  @@unique([userId, courseId])\n}\n\nmodel Notification {\n  id Int @id @default(autoincrement())\n\n  userId  String\n  message String\n\n  read      Boolean  @default(false)\n  createdAt DateTime @default(now())\n\n  user User @relation(fields: [userId], references: [id])\n}\n\nmodel Course {\n  id          String   @id @default(uuid())\n  theme       String\n  description String\n  title       String\n  section     Json\n  bottomText  String\n  image       String\n  price       Int\n  userId      String\n  createdAt   DateTime @default(now())\n\n  user           User             @relation(fields: [userId], references: [id])\n  category       String?\n  lessons        Lessons[]\n  favoriteCourse FavoriteCourse[]\n}\n\nmodel Category {\n  id   String @id @default(uuid())\n  type String\n  name String\n}\n\nmodel Lessons {\n  id       Int    @id @default(autoincrement())\n  title    String\n  courseId String\n\n  videos Video[]\n\n  course Course @relation(fields: [courseId], references: [id])\n}\n\nmodel Video {\n  id        Int     @id @default(autoincrement())\n  title     String\n  preview   String?\n  videoUrl  String\n  duration  Int\n  lessonsId Int\n\n  views   Int     @default(0)\n  lessons Lessons @relation(fields: [lessonsId], references: [id])\n\n  comments Comments[]\n}\n\nmodel Comments {\n  id        String @id @default(uuid())\n  text      String\n  timestamp Int // секунда видео, где оставлен комментарий\n  userId    String\n  videoId   Int\n\n  createdAt DateTime @default(now())\n\n  user  User  @relation(fields: [userId], references: [id])\n  video Video @relation(fields: [videoId], references: [id])\n}\n",
   "runtimeDataModel": {
     "models": {},
     "enums": {},
@@ -28,7 +28,7 @@ const config: runtime.GetPrismaClientConfig = {
   }
 }
 
-config.runtimeDataModel = JSON.parse("{\"models\":{\"User\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"avatar\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"banner\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"password\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"provider\",\"kind\":\"enum\",\"type\":\"AuthProvider\"},{\"name\":\"role\",\"kind\":\"enum\",\"type\":\"Role\"},{\"name\":\"country\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"notification\",\"kind\":\"object\",\"type\":\"Notification\",\"relationName\":\"NotificationToUser\"},{\"name\":\"course\",\"kind\":\"object\",\"type\":\"Course\",\"relationName\":\"CourseToUser\"}],\"dbName\":null},\"Notification\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"message\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"read\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"NotificationToUser\"}],\"dbName\":null},\"Course\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"theme\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"title\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"subtitles\",\"kind\":\"object\",\"type\":\"Subtitles\",\"relationName\":\"CourseToSubtitles\"},{\"name\":\"playlist\",\"kind\":\"object\",\"type\":\"Playlist\",\"relationName\":\"CourseToPlaylist\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"CourseToUser\"}],\"dbName\":null},\"Subtitles\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"courseId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"course\",\"kind\":\"object\",\"type\":\"Course\",\"relationName\":\"CourseToSubtitles\"},{\"name\":\"text\",\"kind\":\"scalar\",\"type\":\"String\"}],\"dbName\":null},\"Playlist\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"title\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"lessons\",\"kind\":\"object\",\"type\":\"Lesson\",\"relationName\":\"LessonToPlaylist\"},{\"name\":\"courseId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"course\",\"kind\":\"object\",\"type\":\"Course\",\"relationName\":\"CourseToPlaylist\"}],\"dbName\":null},\"Lesson\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"title\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"url\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"time\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"isLocked\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"playlistId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"playlist\",\"kind\":\"object\",\"type\":\"Playlist\",\"relationName\":\"LessonToPlaylist\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"comments\",\"kind\":\"object\",\"type\":\"Comment\",\"relationName\":\"CommentToLesson\"}],\"dbName\":null},\"Comment\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"message\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"detailLessonId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"detailLesson\",\"kind\":\"object\",\"type\":\"Lesson\",\"relationName\":\"CommentToLesson\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{\"User\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"avatar\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"banner\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"password\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"country\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"notification\",\"kind\":\"object\",\"type\":\"Notification\",\"relationName\":\"NotificationToUser\"},{\"name\":\"course\",\"kind\":\"object\",\"type\":\"Course\",\"relationName\":\"CourseToUser\"},{\"name\":\"comments\",\"kind\":\"object\",\"type\":\"Comments\",\"relationName\":\"CommentsToUser\"},{\"name\":\"favoriteCourse\",\"kind\":\"object\",\"type\":\"FavoriteCourse\",\"relationName\":\"FavoriteCourseToUser\"},{\"name\":\"provider\",\"kind\":\"enum\",\"type\":\"AuthProvider\"},{\"name\":\"role\",\"kind\":\"enum\",\"type\":\"Role\"}],\"dbName\":null},\"FavoriteCourse\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"courseId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"FavoriteCourseToUser\"},{\"name\":\"course\",\"kind\":\"object\",\"type\":\"Course\",\"relationName\":\"CourseToFavoriteCourse\"}],\"dbName\":null},\"Notification\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"message\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"read\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"NotificationToUser\"}],\"dbName\":null},\"Course\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"theme\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"title\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"section\",\"kind\":\"scalar\",\"type\":\"Json\"},{\"name\":\"bottomText\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"image\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"price\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"CourseToUser\"},{\"name\":\"category\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"lessons\",\"kind\":\"object\",\"type\":\"Lessons\",\"relationName\":\"CourseToLessons\"},{\"name\":\"favoriteCourse\",\"kind\":\"object\",\"type\":\"FavoriteCourse\",\"relationName\":\"CourseToFavoriteCourse\"}],\"dbName\":null},\"Category\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"type\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"}],\"dbName\":null},\"Lessons\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"title\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"courseId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"videos\",\"kind\":\"object\",\"type\":\"Video\",\"relationName\":\"LessonsToVideo\"},{\"name\":\"course\",\"kind\":\"object\",\"type\":\"Course\",\"relationName\":\"CourseToLessons\"}],\"dbName\":null},\"Video\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"title\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"preview\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"videoUrl\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"duration\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"lessonsId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"views\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"lessons\",\"kind\":\"object\",\"type\":\"Lessons\",\"relationName\":\"LessonsToVideo\"},{\"name\":\"comments\",\"kind\":\"object\",\"type\":\"Comments\",\"relationName\":\"CommentsToVideo\"}],\"dbName\":null},\"Comments\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"text\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"timestamp\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"videoId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"CommentsToUser\"},{\"name\":\"video\",\"kind\":\"object\",\"type\":\"Video\",\"relationName\":\"CommentsToVideo\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
 
 async function decodeBase64AsWasm(wasmBase64: string): Promise<WebAssembly.Module> {
   const { Buffer } = await import('node:buffer')
@@ -187,6 +187,16 @@ export interface PrismaClient<
   get user(): Prisma.UserDelegate<ExtArgs, { omit: OmitOpts }>;
 
   /**
+   * `prisma.favoriteCourse`: Exposes CRUD operations for the **FavoriteCourse** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more FavoriteCourses
+    * const favoriteCourses = await prisma.favoriteCourse.findMany()
+    * ```
+    */
+  get favoriteCourse(): Prisma.FavoriteCourseDelegate<ExtArgs, { omit: OmitOpts }>;
+
+  /**
    * `prisma.notification`: Exposes CRUD operations for the **Notification** model.
     * Example usage:
     * ```ts
@@ -207,44 +217,44 @@ export interface PrismaClient<
   get course(): Prisma.CourseDelegate<ExtArgs, { omit: OmitOpts }>;
 
   /**
-   * `prisma.subtitles`: Exposes CRUD operations for the **Subtitles** model.
+   * `prisma.category`: Exposes CRUD operations for the **Category** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more Subtitles
-    * const subtitles = await prisma.subtitles.findMany()
+    * // Fetch zero or more Categories
+    * const categories = await prisma.category.findMany()
     * ```
     */
-  get subtitles(): Prisma.SubtitlesDelegate<ExtArgs, { omit: OmitOpts }>;
+  get category(): Prisma.CategoryDelegate<ExtArgs, { omit: OmitOpts }>;
 
   /**
-   * `prisma.playlist`: Exposes CRUD operations for the **Playlist** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Playlists
-    * const playlists = await prisma.playlist.findMany()
-    * ```
-    */
-  get playlist(): Prisma.PlaylistDelegate<ExtArgs, { omit: OmitOpts }>;
-
-  /**
-   * `prisma.lesson`: Exposes CRUD operations for the **Lesson** model.
+   * `prisma.lessons`: Exposes CRUD operations for the **Lessons** model.
     * Example usage:
     * ```ts
     * // Fetch zero or more Lessons
-    * const lessons = await prisma.lesson.findMany()
+    * const lessons = await prisma.lessons.findMany()
     * ```
     */
-  get lesson(): Prisma.LessonDelegate<ExtArgs, { omit: OmitOpts }>;
+  get lessons(): Prisma.LessonsDelegate<ExtArgs, { omit: OmitOpts }>;
 
   /**
-   * `prisma.comment`: Exposes CRUD operations for the **Comment** model.
+   * `prisma.video`: Exposes CRUD operations for the **Video** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Videos
+    * const videos = await prisma.video.findMany()
+    * ```
+    */
+  get video(): Prisma.VideoDelegate<ExtArgs, { omit: OmitOpts }>;
+
+  /**
+   * `prisma.comments`: Exposes CRUD operations for the **Comments** model.
     * Example usage:
     * ```ts
     * // Fetch zero or more Comments
-    * const comments = await prisma.comment.findMany()
+    * const comments = await prisma.comments.findMany()
     * ```
     */
-  get comment(): Prisma.CommentDelegate<ExtArgs, { omit: OmitOpts }>;
+  get comments(): Prisma.CommentsDelegate<ExtArgs, { omit: OmitOpts }>;
 }
 
 export function getPrismaClientClass(): PrismaClientConstructor {

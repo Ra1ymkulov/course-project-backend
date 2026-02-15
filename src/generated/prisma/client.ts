@@ -43,6 +43,11 @@ export { Prisma }
  */
 export type User = Prisma.UserModel
 /**
+ * Model FavoriteCourse
+ * 
+ */
+export type FavoriteCourse = Prisma.FavoriteCourseModel
+/**
  * Model Notification
  * 
  */
@@ -53,22 +58,22 @@ export type Notification = Prisma.NotificationModel
  */
 export type Course = Prisma.CourseModel
 /**
- * Model Subtitles
+ * Model Category
  * 
  */
-export type Subtitles = Prisma.SubtitlesModel
+export type Category = Prisma.CategoryModel
 /**
- * Model Playlist
+ * Model Lessons
  * 
  */
-export type Playlist = Prisma.PlaylistModel
+export type Lessons = Prisma.LessonsModel
 /**
- * Model Lesson
+ * Model Video
  * 
  */
-export type Lesson = Prisma.LessonModel
+export type Video = Prisma.VideoModel
 /**
- * Model Comment
+ * Model Comments
  * 
  */
-export type Comment = Prisma.CommentModel
+export type Comments = Prisma.CommentsModel

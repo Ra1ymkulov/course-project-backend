@@ -9,10 +9,11 @@
  * 🟢 You can import this file directly.
  */
 export type * from './models/User'
+export type * from './models/FavoriteCourse'
 export type * from './models/Notification'
 export type * from './models/Course'
-export type * from './models/Subtitles'
-export type * from './models/Playlist'
-export type * from './models/Lesson'
-export type * from './models/Comment'
+export type * from './models/Category'
+export type * from './models/Lessons'
+export type * from './models/Video'
+export type * from './models/Comments'
 export type * from './commonInputTypes'

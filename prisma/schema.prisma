@@ -8,119 +8,112 @@ datasource db {
 }
 
 model User {
-  id           String         @id @default(uuid())
-  avatar       String?
-  banner       String?
-  name         String
-  email        String         @unique
-  password     String?
-  provider     AuthProvider   @default(LOCAL)
-  role         Role           @default(STUDENT)
-  country      String?
-  notification Notification[]
-  course       Course[]
+  id                   String            @id @default(uuid())
+  avatar               String?
+  banner               String?
+  name                 String
+  email                String            @unique
+  password             String?
+  country              String?
 
-  chats        ChatParticipant[]
-  message      Message[]
+  notification         Notification[]
+  course               Course[]
+  comments             Comments[]
+  favoriteCourse       FavoriteCourse[]
+
+  provider             AuthProvider      @default(LOCAL)
+  role                 Role              @default(STUDENT)
 }
 enum AuthProvider {
   LOCAL
   GOOGLE
 }
-
-model Notification {
-  id        Int      @id @default(autoincrement())
-  userId    String
-  message   String
-  read      Boolean  @default(false)
-  createdAt DateTime @default(now())
-  user      User     @relation(fields: [userId], references: [id])
-}
-
 enum Role {
   STUDENT
   OWNER
 }
 
+model FavoriteCourse {
+  id                   Int       @id @default(autoincrement())
+  userId               String
+  courseId             String
+
+  createdAt            DateTime  @default(now())
+
+  user                 User      @relation(fields: [userId], references: [id])
+  course               Course    @relation(fields: [courseId], references: [id])
+
+  @@unique([userId, courseId])
+}
+
+model Notification {
+  id                   Int       @id @default(autoincrement())
+
+  userId               String
+  message              String
+
+  read                 Boolean   @default(false)
+  createdAt            DateTime  @default(now())
+
+  user                 User      @relation(fields: [userId], references: [id])
+}
+
 model Course {
-  id          String    @id @default(uuid())
-  theme       String
-  description String  
-  title       String
-  subtitles   Subtitles[]
-  playlist    Playlist[]
-  userId      String
-  user        User @relation(fields: [userId], references: [id])
+  id                   String    @id @default(uuid())
+  theme                String
+  description          String  
+  title                String
+  section              Json
+  bottomText           String
+  image                String
+  price                Int
+  userId               String
+  createdAt            DateTime  @default(now())
+
+  user                 User      @relation(fields: [userId], references: [id])
+  category             String?
+  lessons              Lessons[]
+  favoriteCourse       FavoriteCourse[]
 }
 
-model Subtitles {
-  id          Int            @id @default(autoincrement())
-  courseId    String
-  course      Course @relation(fields: [courseId], references: [id])
-  text        String
+model Category {
+  id                   String    @id @default(uuid())
+  type                 String
+  name                 String
 }
 
-model Playlist {
-  id      Int    @id @default(autoincrement())
-  title   String
-  lessons  Lesson[]
-  courseId String
-  course   Course @relation(fields: [courseId], references: [id])
+model Lessons {
+  id                   Int       @id @default(autoincrement())
+  title                String
+  courseId             String
+
+  videos               Video[]
+
+  course               Course    @relation(fields: [courseId], references: [id])
 }
 
-model Lesson {
-  id         String    @id @default(uuid())
-  title      String
-  name       String
-  url        String
-  time       Int
-  isLocked   Boolean @default(true)
-  playlistId Int
-  playlist   Playlist @relation(fields: [playlistId], references: [id])
-  createdAt DateTime @default(now())
-  comments   Comment[]
+model Video {
+  id                   Int       @id @default(autoincrement())
+  title                String
+  preview              String?
+  videoUrl             String
+  duration             Int       
+  lessonsId            Int
+
+  views                Int       @default(0) 
+  lessons              Lessons   @relation(fields: [lessonsId], references: [id])
+
+  comments             Comments[]
 }
+model Comments {
+  id                   String    @id @default(uuid())
+  text                 String
+  timestamp            Int       // секунда видео, где оставлен комментарий
+  userId               String
+  videoId              Int
 
-model Comment {
-  id              Int      @id @default(autoincrement())
-  userId          String
-  message         String
-  createdAt       DateTime @default(now())
-  detailLessonId  String
-  detailLesson    Lesson @relation(fields: [detailLessonId], references: [id])
+  createdAt            DateTime  @default(now())
+
+  user                 User      @relation(fields: [userId], references: [id])
+  video                Video     @relation(fields: [videoId], references: [id])
 }
-
-enum ChatType {
-  PRIVATE
-  GROUP
-}
-model Chat {
-  id           String            @id @default(uuid())
-  type         ChatType
-  name         String?
-  participants ChatParticipant[]
-  messages     Message[]
-  createdAt    DateTime          @default(now())
-}
-model ChatParticipant {
-  id     String @id @default(uuid())
-  chatId String
-  userId String
-
-  chat Chat @relation(fields: [chatId], references: [id])
-  user User @relation(fields: [userId], references: [id])
-
-  @@unique([chatId, userId])
-}
-
-model Message {
-  id        String   @id @default(uuid())
-  chatId   String
-  userId   String
-  text     String
-  createdAt DateTime @default(now())
-
-  chat Chat @relation(fields: [chatId], references: [id])
-  user User @relation(fields: [userId], references: [id])
-}
-

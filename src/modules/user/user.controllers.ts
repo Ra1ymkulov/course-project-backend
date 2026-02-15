@@ -13,10 +13,9 @@ const getUser = async (req: Request, res: Response) => {
         notification: true,
         course: {
           include: {
-            subtitles: true,
-            playlist: {
+            lessons: {
               include: {
-                lessons: {
+                videos: {
                   include: {
                     comments: true,
                   },
