@@ -1,25 +1,40 @@
 import express from "express";
+import cors from "cors";
 import { config } from "dotenv";
 import routes from "./routes";
-import cors from "cors";
+import { Server as SocketServer } from "socket.io";
+import http from "http";
+import { setupSocket } from "./socket";
+
 config();
 
-const buildServer = () => {
-  const server = express();
-  server.use(
+export const buildServer = () => {
+  const app = express();
+  app.use(
     cors({
-      origin: ["http://localhost:3001", "http://localhost:3000"],
+      origin: ["http://localhost:3000", "http://localhost:3001"],
       credentials: true,
     })
   );
-  server.use(express.json());
-  server.get("/", (req, res) => {
-    res.status(200).json({
-      message: "server start",
-    });
+  app.use(express.json());
+
+  app.get("/", (req, res) => {
+    res.status(200).json({ message: "server start" });
   });
-  server.use("/api", routes);
-  return server;
+
+  app.use("/api", routes);
+
+  return app;
 };
 
-export default buildServer;
+export const attachSocket = (server: http.Server) => {
+  const io = new SocketServer(server, {
+    cors: {
+      origin: ["http://localhost:3000", "http://localhost:3001"],
+      credentials: true,
+    },
+  });
+
+  setupSocket(io);
+  return io;
+};

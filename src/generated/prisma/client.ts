@@ -77,3 +77,18 @@ export type Video = Prisma.VideoModel
  * 
  */
 export type Comments = Prisma.CommentsModel
+/**
+ * Model Chat
+ * 
+ */
+export type Chat = Prisma.ChatModel
+/**
+ * Model GroupUser
+ * 
+ */
+export type GroupUser = Prisma.GroupUserModel
+/**
+ * Model Message
+ * 
+ */
+export type Message = Prisma.MessageModel
