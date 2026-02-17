@@ -244,8 +244,8 @@ export type VideoWhereInput = {
   duration?: Prisma.IntFilter<"Video"> | number
   lessonsId?: Prisma.IntFilter<"Video"> | number
   views?: Prisma.IntFilter<"Video"> | number
-  lessons?: Prisma.XOR<Prisma.LessonsScalarRelationFilter, Prisma.LessonsWhereInput>
   comments?: Prisma.CommentsListRelationFilter
+  lessons?: Prisma.XOR<Prisma.LessonsScalarRelationFilter, Prisma.LessonsWhereInput>
 }
 
 export type VideoOrderByWithRelationInput = {
@@ -256,8 +256,8 @@ export type VideoOrderByWithRelationInput = {
   duration?: Prisma.SortOrder
   lessonsId?: Prisma.SortOrder
   views?: Prisma.SortOrder
-  lessons?: Prisma.LessonsOrderByWithRelationInput
   comments?: Prisma.CommentsOrderByRelationAggregateInput
+  lessons?: Prisma.LessonsOrderByWithRelationInput
 }
 
 export type VideoWhereUniqueInput = Prisma.AtLeast<{
@@ -271,8 +271,8 @@ export type VideoWhereUniqueInput = Prisma.AtLeast<{
   duration?: Prisma.IntFilter<"Video"> | number
   lessonsId?: Prisma.IntFilter<"Video"> | number
   views?: Prisma.IntFilter<"Video"> | number
-  lessons?: Prisma.XOR<Prisma.LessonsScalarRelationFilter, Prisma.LessonsWhereInput>
   comments?: Prisma.CommentsListRelationFilter
+  lessons?: Prisma.XOR<Prisma.LessonsScalarRelationFilter, Prisma.LessonsWhereInput>
 }, "id">
 
 export type VideoOrderByWithAggregationInput = {
@@ -309,8 +309,8 @@ export type VideoCreateInput = {
   videoUrl: string
   duration: number
   views?: number
-  lessons: Prisma.LessonsCreateNestedOneWithoutVideosInput
   comments?: Prisma.CommentsCreateNestedManyWithoutVideoInput
+  lessons: Prisma.LessonsCreateNestedOneWithoutVideosInput
 }
 
 export type VideoUncheckedCreateInput = {
@@ -330,8 +330,8 @@ export type VideoUpdateInput = {
   videoUrl?: Prisma.StringFieldUpdateOperationsInput | string
   duration?: Prisma.IntFieldUpdateOperationsInput | number
   views?: Prisma.IntFieldUpdateOperationsInput | number
-  lessons?: Prisma.LessonsUpdateOneRequiredWithoutVideosNestedInput
   comments?: Prisma.CommentsUpdateManyWithoutVideoNestedInput
+  lessons?: Prisma.LessonsUpdateOneRequiredWithoutVideosNestedInput
 }
 
 export type VideoUncheckedUpdateInput = {
@@ -676,8 +676,8 @@ export type VideoSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   duration?: boolean
   lessonsId?: boolean
   views?: boolean
-  lessons?: boolean | Prisma.LessonsDefaultArgs<ExtArgs>
   comments?: boolean | Prisma.Video$commentsArgs<ExtArgs>
+  lessons?: boolean | Prisma.LessonsDefaultArgs<ExtArgs>
   _count?: boolean | Prisma.VideoCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["video"]>
 
@@ -715,8 +715,8 @@ export type VideoSelectScalar = {
 
 export type VideoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "preview" | "videoUrl" | "duration" | "lessonsId" | "views", ExtArgs["result"]["video"]>
 export type VideoInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  lessons?: boolean | Prisma.LessonsDefaultArgs<ExtArgs>
   comments?: boolean | Prisma.Video$commentsArgs<ExtArgs>
+  lessons?: boolean | Prisma.LessonsDefaultArgs<ExtArgs>
   _count?: boolean | Prisma.VideoCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type VideoIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -729,8 +729,8 @@ export type VideoIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
 export type $VideoPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Video"
   objects: {
-    lessons: Prisma.$LessonsPayload<ExtArgs>
     comments: Prisma.$CommentsPayload<ExtArgs>[]
+    lessons: Prisma.$LessonsPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1134,8 +1134,8 @@ readonly fields: VideoFieldRefs;
  */
 export interface Prisma__VideoClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  lessons<T extends Prisma.LessonsDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.LessonsDefaultArgs<ExtArgs>>): Prisma.Prisma__LessonsClient<runtime.Types.Result.GetResult<Prisma.$LessonsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   comments<T extends Prisma.Video$commentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Video$commentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CommentsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  lessons<T extends Prisma.LessonsDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.LessonsDefaultArgs<ExtArgs>>): Prisma.Prisma__LessonsClient<runtime.Types.Result.GetResult<Prisma.$LessonsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

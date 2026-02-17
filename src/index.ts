@@ -1,24 +1,27 @@
 import "dotenv/config";
-import buildServer from "./app";
+import { buildServer, attachSocket } from "./app";
+import http from "http";
 
-const server = buildServer();
+// создаём Express приложение
+const app = buildServer();
+
+// создаём HTTP сервер для Socket.IO
+const server = http.createServer(app);
+
+// подключаем Socket.IO
+attachSocket(server);
 
 const start = () => {
   try {
-    const PORT = process.env.PORT || 3000;
-    server.listen(
-      {
-        port: PORT,
-        host: "0.0.0.0",
-      },
-      () => {
-        console.log(`${new Date()}`);
-        console.log(`Server run in: http://localhost:${PORT}`);
-      },
-    );
+    const PORT = Number(process.env.PORT) || 5000; // приводим к number
+    server.listen(PORT, "0.0.0.0", () => {
+      console.log(`${new Date()}`);
+      console.log(`Server running on: http://localhost:${PORT}`);
+    });
   } catch (error) {
-    console.log(`server crush: ${error}`);
+    console.log(`Server crashed: ${error}`);
     process.exit(1);
   }
 };
+
 start();

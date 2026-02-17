@@ -208,8 +208,8 @@ export type FavoriteCourseWhereInput = {
   userId?: Prisma.StringFilter<"FavoriteCourse"> | string
   courseId?: Prisma.StringFilter<"FavoriteCourse"> | string
   createdAt?: Prisma.DateTimeFilter<"FavoriteCourse"> | Date | string
-  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   course?: Prisma.XOR<Prisma.CourseScalarRelationFilter, Prisma.CourseWhereInput>
+  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
 
 export type FavoriteCourseOrderByWithRelationInput = {
@@ -217,8 +217,8 @@ export type FavoriteCourseOrderByWithRelationInput = {
   userId?: Prisma.SortOrder
   courseId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  user?: Prisma.UserOrderByWithRelationInput
   course?: Prisma.CourseOrderByWithRelationInput
+  user?: Prisma.UserOrderByWithRelationInput
 }
 
 export type FavoriteCourseWhereUniqueInput = Prisma.AtLeast<{
@@ -230,8 +230,8 @@ export type FavoriteCourseWhereUniqueInput = Prisma.AtLeast<{
   userId?: Prisma.StringFilter<"FavoriteCourse"> | string
   courseId?: Prisma.StringFilter<"FavoriteCourse"> | string
   createdAt?: Prisma.DateTimeFilter<"FavoriteCourse"> | Date | string
-  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   course?: Prisma.XOR<Prisma.CourseScalarRelationFilter, Prisma.CourseWhereInput>
+  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }, "id" | "userId_courseId">
 
 export type FavoriteCourseOrderByWithAggregationInput = {
@@ -258,8 +258,8 @@ export type FavoriteCourseScalarWhereWithAggregatesInput = {
 
 export type FavoriteCourseCreateInput = {
   createdAt?: Date | string
-  user: Prisma.UserCreateNestedOneWithoutFavoriteCourseInput
   course: Prisma.CourseCreateNestedOneWithoutFavoriteCourseInput
+  user: Prisma.UserCreateNestedOneWithoutFavoriteCourseInput
 }
 
 export type FavoriteCourseUncheckedCreateInput = {
@@ -271,8 +271,8 @@ export type FavoriteCourseUncheckedCreateInput = {
 
 export type FavoriteCourseUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  user?: Prisma.UserUpdateOneRequiredWithoutFavoriteCourseNestedInput
   course?: Prisma.CourseUpdateOneRequiredWithoutFavoriteCourseNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutFavoriteCourseNestedInput
 }
 
 export type FavoriteCourseUncheckedUpdateInput = {
@@ -577,8 +577,8 @@ export type FavoriteCourseSelect<ExtArgs extends runtime.Types.Extensions.Intern
   userId?: boolean
   courseId?: boolean
   createdAt?: boolean
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["favoriteCourse"]>
 
 export type FavoriteCourseSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -586,8 +586,8 @@ export type FavoriteCourseSelectCreateManyAndReturn<ExtArgs extends runtime.Type
   userId?: boolean
   courseId?: boolean
   createdAt?: boolean
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["favoriteCourse"]>
 
 export type FavoriteCourseSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -595,8 +595,8 @@ export type FavoriteCourseSelectUpdateManyAndReturn<ExtArgs extends runtime.Type
   userId?: boolean
   courseId?: boolean
   createdAt?: boolean
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["favoriteCourse"]>
 
 export type FavoriteCourseSelectScalar = {
@@ -608,23 +608,23 @@ export type FavoriteCourseSelectScalar = {
 
 export type FavoriteCourseOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "courseId" | "createdAt", ExtArgs["result"]["favoriteCourse"]>
 export type FavoriteCourseInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type FavoriteCourseIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type FavoriteCourseIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 
 export type $FavoriteCoursePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "FavoriteCourse"
   objects: {
-    user: Prisma.$UserPayload<ExtArgs>
     course: Prisma.$CoursePayload<ExtArgs>
+    user: Prisma.$UserPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1025,8 +1025,8 @@ readonly fields: FavoriteCourseFieldRefs;
  */
 export interface Prisma__FavoriteCourseClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   course<T extends Prisma.CourseDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CourseDefaultArgs<ExtArgs>>): Prisma.Prisma__CourseClient<runtime.Types.Result.GetResult<Prisma.$CoursePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
