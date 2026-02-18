@@ -58,7 +58,10 @@ export const ModelName = {
   Category: 'Category',
   Lessons: 'Lessons',
   Video: 'Video',
-  Comments: 'Comments'
+  Comments: 'Comments',
+  Chat: 'Chat',
+  GroupUser: 'GroupUser',
+  Message: 'Message'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -84,9 +87,9 @@ export const UserScalarFieldEnum = {
   name: 'name',
   email: 'email',
   password: 'password',
+  role: 'role',
   country: 'country',
-  provider: 'provider',
-  role: 'role'
+  provider: 'provider'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -118,12 +121,12 @@ export const CourseScalarFieldEnum = {
   theme: 'theme',
   description: 'description',
   title: 'title',
-  section: 'section',
+  userId: 'userId',
   bottomText: 'bottomText',
+  createdAt: 'createdAt',
   image: 'image',
   price: 'price',
-  userId: 'userId',
-  createdAt: 'createdAt',
+  section: 'section',
   category: 'category'
 } as const
 
@@ -171,6 +174,37 @@ export const CommentsScalarFieldEnum = {
 } as const
 
 export type CommentsScalarFieldEnum = (typeof CommentsScalarFieldEnum)[keyof typeof CommentsScalarFieldEnum]
+
+
+export const ChatScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  avatar: 'avatar',
+  isGroup: 'isGroup',
+  createdAt: 'createdAt'
+} as const
+
+export type ChatScalarFieldEnum = (typeof ChatScalarFieldEnum)[keyof typeof ChatScalarFieldEnum]
+
+
+export const GroupUserScalarFieldEnum = {
+  id: 'id',
+  chatId: 'chatId',
+  userId: 'userId'
+} as const
+
+export type GroupUserScalarFieldEnum = (typeof GroupUserScalarFieldEnum)[keyof typeof GroupUserScalarFieldEnum]
+
+
+export const MessageScalarFieldEnum = {
+  id: 'id',
+  text: 'text',
+  userId: 'userId',
+  chatId: 'chatId',
+  createdAt: 'createdAt'
+} as const
+
+export type MessageScalarFieldEnum = (typeof MessageScalarFieldEnum)[keyof typeof MessageScalarFieldEnum]
 
 
 export const SortOrder = {

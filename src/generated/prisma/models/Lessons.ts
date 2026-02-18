@@ -200,16 +200,16 @@ export type LessonsWhereInput = {
   id?: Prisma.IntFilter<"Lessons"> | number
   title?: Prisma.StringFilter<"Lessons"> | string
   courseId?: Prisma.StringFilter<"Lessons"> | string
-  videos?: Prisma.VideoListRelationFilter
   course?: Prisma.XOR<Prisma.CourseScalarRelationFilter, Prisma.CourseWhereInput>
+  videos?: Prisma.VideoListRelationFilter
 }
 
 export type LessonsOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
   courseId?: Prisma.SortOrder
-  videos?: Prisma.VideoOrderByRelationAggregateInput
   course?: Prisma.CourseOrderByWithRelationInput
+  videos?: Prisma.VideoOrderByRelationAggregateInput
 }
 
 export type LessonsWhereUniqueInput = Prisma.AtLeast<{
@@ -219,8 +219,8 @@ export type LessonsWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.LessonsWhereInput | Prisma.LessonsWhereInput[]
   title?: Prisma.StringFilter<"Lessons"> | string
   courseId?: Prisma.StringFilter<"Lessons"> | string
-  videos?: Prisma.VideoListRelationFilter
   course?: Prisma.XOR<Prisma.CourseScalarRelationFilter, Prisma.CourseWhereInput>
+  videos?: Prisma.VideoListRelationFilter
 }, "id">
 
 export type LessonsOrderByWithAggregationInput = {
@@ -245,8 +245,8 @@ export type LessonsScalarWhereWithAggregatesInput = {
 
 export type LessonsCreateInput = {
   title: string
-  videos?: Prisma.VideoCreateNestedManyWithoutLessonsInput
   course: Prisma.CourseCreateNestedOneWithoutLessonsInput
+  videos?: Prisma.VideoCreateNestedManyWithoutLessonsInput
 }
 
 export type LessonsUncheckedCreateInput = {
@@ -258,8 +258,8 @@ export type LessonsUncheckedCreateInput = {
 
 export type LessonsUpdateInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  videos?: Prisma.VideoUpdateManyWithoutLessonsNestedInput
   course?: Prisma.CourseUpdateOneRequiredWithoutLessonsNestedInput
+  videos?: Prisma.VideoUpdateManyWithoutLessonsNestedInput
 }
 
 export type LessonsUncheckedUpdateInput = {
@@ -522,8 +522,8 @@ export type LessonsSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   id?: boolean
   title?: boolean
   courseId?: boolean
-  videos?: boolean | Prisma.Lessons$videosArgs<ExtArgs>
   course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
+  videos?: boolean | Prisma.Lessons$videosArgs<ExtArgs>
   _count?: boolean | Prisma.LessonsCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["lessons"]>
 
@@ -549,8 +549,8 @@ export type LessonsSelectScalar = {
 
 export type LessonsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "courseId", ExtArgs["result"]["lessons"]>
 export type LessonsInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  videos?: boolean | Prisma.Lessons$videosArgs<ExtArgs>
   course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
+  videos?: boolean | Prisma.Lessons$videosArgs<ExtArgs>
   _count?: boolean | Prisma.LessonsCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type LessonsIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -563,8 +563,8 @@ export type LessonsIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
 export type $LessonsPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Lessons"
   objects: {
-    videos: Prisma.$VideoPayload<ExtArgs>[]
     course: Prisma.$CoursePayload<ExtArgs>
+    videos: Prisma.$VideoPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -964,8 +964,8 @@ readonly fields: LessonsFieldRefs;
  */
 export interface Prisma__LessonsClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  videos<T extends Prisma.Lessons$videosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Lessons$videosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$VideoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   course<T extends Prisma.CourseDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CourseDefaultArgs<ExtArgs>>): Prisma.Prisma__CourseClient<runtime.Types.Result.GetResult<Prisma.$CoursePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  videos<T extends Prisma.Lessons$videosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Lessons$videosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$VideoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
