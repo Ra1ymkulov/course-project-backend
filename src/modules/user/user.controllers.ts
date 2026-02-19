@@ -44,6 +44,31 @@ const getAllUser = async (req: Request, res: Response) => {
       users,
       success: true,
     });
+  } catch (error) { 
+    res.status(500).json({
+      success: false,
+      message: error,
+    });
+  }
+};
+const updateProfile = async (req: Request, res: Response) => {
+  try {
+    const { name, avatar, banner, email, country } = req.body;
+    const id = req.params.id as string;
+    const user = await prisma.user.update({
+      where: { id },
+      data: {
+        name,
+        email,
+        avatar,
+        banner,
+        country,
+      },
+    });
+    res.status(200).json({
+      success: true,
+      user,
+    });
   } catch (error) {
     res.status(500).json({
       success: false,
@@ -54,4 +79,5 @@ const getAllUser = async (req: Request, res: Response) => {
 export default {
   getUser,
   getAllUser,
+  updateProfile,
 };

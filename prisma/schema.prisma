@@ -23,6 +23,7 @@ model User {
   notification   Notification[]
   groupUser      GroupUser[]
   message        Message[]
+  reviews        Review[]
 }
 
 model FavoriteCourse {
@@ -118,6 +119,40 @@ model Chat {
 
   messages  Message[]
   users     GroupUser[]
+}
+
+model GroupUser {
+  id      String  @id @default(uuid())
+  chatId  String
+  userId  String
+
+  chat    Chat    @relation(fields: [chatId], references: [id])
+  user    User    @relation(fields: [userId], references: [id])
+
+  @@unique([chatId, userId])
+}
+
+model Message {
+  id        String    @id @default(uuid())
+  text      String
+  userId    String
+  chatId    String
+  createdAt DateTime  @default(now())
+
+  user      User      @relation(fields: [userId], references: [id])
+  chat      Chat      @relation(fields: [chatId], references: [id])
+}
+
+
+model Review {
+  id                String  @id @default(uuid())
+  rating            Int
+  text              String
+  createdAt         String
+  
+  userId            String
+  user      User      @relation(fields: [userId], references: [id])
+}
 }
 
 model GroupUser {
