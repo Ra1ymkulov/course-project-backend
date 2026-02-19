@@ -18,10 +18,11 @@ model User {
   country        String?
   provider       AuthProvider     @default(LOCAL)
   comments       Comments[]
-  cour  favoriteCourse FavoriteCourse[]
-  GroupUser      GroupUser[]
-  Message        Message[]
+  course         Course[]
+  favoriteCourse FavoriteCourse[]
   notification   Notification[]
+  groupUser      GroupUser[]
+  message        Message[]
   reviews        Review[]
 }
 
@@ -60,7 +61,6 @@ model Course {
   user           User             @relation(fields: [userId], references: [id])
   favoriteCourse FavoriteCourse[]
   lessons        Lessons[]
-  reviews        Review[]
 }
 
 model Category {
@@ -100,47 +100,6 @@ model Comments {
   video     Video    @relation(fields: [videoId], references: [id])
 }
 
-model Chat {
-  id        String      @id
-  title     String
-  avatar    String?
-  isGroup   Boolean     @default(true)
-  createdAt DateTime    @default(now())
-  GroupUser GroupUser[]
-  Message   Message[]
-}
-
-model GroupUser {
-  id     String @id
-  chatId String
-  userId String
-  Chat   Chat   @relation(fields: [chatId], references: [id])
-  User   User   @relation(fields: [userId], references: [id])
-
-  @@unique([chatId, userId])
-}
-
-model Message {
-  id        String   @id
-  text      String
-  userId    String
-  chatId    String
-  createdAt DateTime @default(now())
-  Chat      Chat     @relation(fields: [chatId], references: [id])
-  User      User     @relation(fields: [userId], references: [id])
-}
-
-model Review {
-  id        String   @id @default(uuid())
-  text      String
-  rating    Int
-  createdAt DateTime @default(now())
-  userId    String
-  courseId  String
-  course    Course   @relation(fields: [courseId], references: [id])
-  user      User     @relation(fields: [userId], references: [id])
-}
-
 enum AuthProvider {
   LOCAL
   GOOGLE
@@ -149,12 +108,48 @@ enum AuthProvider {
 enum Role {
   STUDENT
   OWNER
-     User     @relation(fields: [userId], references: [id])
+}
 
-  courseId  String
-  course    Course   @relation(fields: [courseId], references: [id])
-tion(fields: [userId], references: [id])
+model Chat {
+  id        String      @id @default(uuid())
+  title     String
+  avatar    String?
+  isGroup   Boolean     @default(true)
+  createdAt DateTime    @default(now())
 
-  courseId  String
-  course    Course   @relation(fields: [courseId], references: [id])
+  messages  Message[]
+  users     GroupUser[]
+}
+
+model GroupUser {
+  id      String  @id @default(uuid())
+  chatId  String
+  userId  String
+
+  chat    Chat    @relation(fields: [chatId], references: [id])
+  user    User    @relation(fields: [userId], references: [id])
+
+  @@unique([chatId, userId])
+}
+
+model Message {
+  id        String    @id @default(uuid())
+  text      String
+  userId    String
+  chatId    String
+  createdAt DateTime  @default(now())
+
+  user      User      @relation(fields: [userId], references: [id])
+  chat      Chat      @relation(fields: [chatId], references: [id])
+}
+
+
+model Review {
+  id                String  @id @default(uuid())
+  rating            Int
+  text              String
+  createdAt         String
+  
+  userId            String
+  user      User      @relation(fields: [userId], references: [id])
 }

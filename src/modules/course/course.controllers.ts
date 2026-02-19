@@ -28,6 +28,35 @@ const getAllCourse = async (req: Request, res: Response) => {
     });
   }
 };
+const getCourseById = async (req: Request, res: Response) => {
+  try {
+    const id = req.params.id as string;
+    const course = await prisma.course.findUnique({
+      where: { id },
+      include: {
+        lessons: {
+          include: {
+            videos: {
+              include: {
+                comments: true,
+              },
+            },
+          },
+        },
+      },
+    });
+    res.status(200).json({
+      success: true,
+      message: "Получены все курсы!",
+      course,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Ошибка при получении курса по айди!",
+    });
+  }
+};
 
 const getAllCategory = async (req: Request, res: Response) => {
   try {
@@ -81,7 +110,7 @@ const createNewComment = async (req: Request, res: Response) => {
         userId,
         text,
         videoId,
-        timestamp: Math.floor(Date.now() / 1000),
+        timestamp: Math.floor(Math.random() * 300),
         createdAt: new Date(),
       },
     });
@@ -144,4 +173,5 @@ export default {
   createNewComment,
   createNewReview,
   getAllReviews,
+  getCourseById,
 };
