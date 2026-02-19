@@ -1977,25 +1977,25 @@ export type Course$favoriteCourseArgs<ExtArgs extends runtime.Types.Extensions.I
 /**
  * Course.lessons
  */
-export type Course$lessonsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type Course$favoriteCourseArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the Lessons
+   * Select specific fields to fetch from the FavoriteCourse
    */
-  select?: Prisma.LessonsSelect<ExtArgs> | null
+  select?: Prisma.FavoriteCourseSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the Lessons
+   * Omit specific fields from the FavoriteCourse
    */
-  omit?: Prisma.LessonsOmit<ExtArgs> | null
+  omit?: Prisma.FavoriteCourseOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.LessonsInclude<ExtArgs> | null
-  where?: Prisma.LessonsWhereInput
-  orderBy?: Prisma.LessonsOrderByWithRelationInput | Prisma.LessonsOrderByWithRelationInput[]
-  cursor?: Prisma.LessonsWhereUniqueInput
+  include?: Prisma.FavoriteCourseInclude<ExtArgs> | null
+  where?: Prisma.FavoriteCourseWhereInput
+  orderBy?: Prisma.FavoriteCourseOrderByWithRelationInput | Prisma.FavoriteCourseOrderByWithRelationInput[]
+  cursor?: Prisma.FavoriteCourseWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.LessonsScalarFieldEnum | Prisma.LessonsScalarFieldEnum[]
+  distinct?: Prisma.FavoriteCourseScalarFieldEnum | Prisma.FavoriteCourseScalarFieldEnum[]
 }
 
 /**
