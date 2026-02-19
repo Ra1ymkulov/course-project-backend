@@ -18,11 +18,11 @@ model User {
   country        String?
   provider       AuthProvider     @default(LOCAL)
   comments       Comments[]
-  course         Course[]
-  favoriteCourse FavoriteCourse[]
+  cour  favoriteCourse FavoriteCourse[]
   GroupUser      GroupUser[]
   Message        Message[]
   notification   Notification[]
+  reviews        Review[]
 }
 
 model FavoriteCourse {
@@ -60,6 +60,7 @@ model Course {
   user           User             @relation(fields: [userId], references: [id])
   favoriteCourse FavoriteCourse[]
   lessons        Lessons[]
+  reviews        Review[]
 }
 
 model Category {
@@ -129,6 +130,17 @@ model Message {
   User      User     @relation(fields: [userId], references: [id])
 }
 
+model Review {
+  id        String   @id @default(uuid())
+  text      String
+  rating    Int
+  createdAt DateTime @default(now())
+  userId    String
+  courseId  String
+  course    Course   @relation(fields: [courseId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
+}
+
 enum AuthProvider {
   LOCAL
   GOOGLE
@@ -137,4 +149,12 @@ enum AuthProvider {
 enum Role {
   STUDENT
   OWNER
+     User     @relation(fields: [userId], references: [id])
+
+  courseId  String
+  course    Course   @relation(fields: [courseId], references: [id])
+tion(fields: [userId], references: [id])
+
+  courseId  String
+  course    Course   @relation(fields: [courseId], references: [id])
 }

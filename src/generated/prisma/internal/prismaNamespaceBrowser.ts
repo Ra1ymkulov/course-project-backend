@@ -61,7 +61,8 @@ export const ModelName = {
   Comments: 'Comments',
   Chat: 'Chat',
   GroupUser: 'GroupUser',
-  Message: 'Message'
+  Message: 'Message',
+  Review: 'Review'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -205,6 +206,18 @@ export const MessageScalarFieldEnum = {
 } as const
 
 export type MessageScalarFieldEnum = (typeof MessageScalarFieldEnum)[keyof typeof MessageScalarFieldEnum]
+
+
+export const ReviewScalarFieldEnum = {
+  id: 'id',
+  text: 'text',
+  rating: 'rating',
+  createdAt: 'createdAt',
+  userId: 'userId',
+  courseId: 'courseId'
+} as const
+
+export type ReviewScalarFieldEnum = (typeof ReviewScalarFieldEnum)[keyof typeof ReviewScalarFieldEnum]
 
 
 export const SortOrder = {

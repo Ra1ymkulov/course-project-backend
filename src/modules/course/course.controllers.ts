@@ -95,6 +95,46 @@ const createNewComment = async (req: Request, res: Response) => {
     res.status(500).json({ message: "Ошибка при создании комментария" });
   }
 };
+const createNewReview = async (req: Request, res: Response) => {
+  try {
+    const { id, userId, rating, text, courseId } = req.body;
+
+    const comment = await prisma.review.create({
+      data: {
+        id,
+        userId,
+        courseId,
+        text,
+        rating,
+        createdAt: new Date(),
+      },
+    });
+
+    res.status(200).json({
+      success: true,
+      comment,
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Ошибка при создании комментария" });
+  }
+};
+
+const getAllReviews = async (req: Request, res: Response) => {
+  try {
+    const reviews = await prisma.review.findMany({
+      include: {
+        user: true,
+        course: true,
+      },
+    });
+    res.status(200).json({
+      success: true,
+      reviews,
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Ошибка при создании отзыва" });
+  }
+};
 
 export default {
   getAllCourse,
@@ -102,4 +142,6 @@ export default {
   getAllVideo,
   getVideoById,
   createNewComment,
+  createNewReview,
+  getAllReviews,
 };

@@ -92,3 +92,8 @@ export type GroupUser = Prisma.GroupUserModel
  * 
  */
 export type Message = Prisma.MessageModel
+/**
+ * Model Review
+ * 
+ */
+export type Review = Prisma.ReviewModel
