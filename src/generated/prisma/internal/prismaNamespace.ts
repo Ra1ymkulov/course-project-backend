@@ -1471,11 +1471,10 @@ export type MessageScalarFieldEnum = (typeof MessageScalarFieldEnum)[keyof typeo
 
 export const ReviewScalarFieldEnum = {
   id: 'id',
-  text: 'text',
   rating: 'rating',
+  text: 'text',
   createdAt: 'createdAt',
-  userId: 'userId',
-  courseId: 'courseId'
+  userId: 'userId'
 } as const
 
 export type ReviewScalarFieldEnum = (typeof ReviewScalarFieldEnum)[keyof typeof ReviewScalarFieldEnum]

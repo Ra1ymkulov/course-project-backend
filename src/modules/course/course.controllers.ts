@@ -126,13 +126,12 @@ const createNewComment = async (req: Request, res: Response) => {
 };
 const createNewReview = async (req: Request, res: Response) => {
   try {
-    const { id, userId, rating, text, courseId } = req.body;
+    const { id, userId, rating, text } = req.body;
 
     const comment = await prisma.review.create({
       data: {
         id,
         userId,
-        courseId,
         text,
         rating,
         createdAt: new Date(),
@@ -153,7 +152,6 @@ const getAllReviews = async (req: Request, res: Response) => {
     const reviews = await prisma.review.findMany({
       include: {
         user: true,
-        course: true,
       },
     });
     res.status(200).json({

@@ -148,31 +148,10 @@ model Review {
   id                String  @id @default(uuid())
   rating            Int
   text              String
-  createdAt         String
-  
+  createdAt         DateTime  @default(now())
   userId            String
-  user      User      @relation(fields: [userId], references: [id])
-}
-}
-
-model GroupUser {
-  id      String  @id @default(uuid())
-  chatId  String
-  userId  String
-
-  chat    Chat    @relation(fields: [chatId], references: [id])
-  user    User    @relation(fields: [userId], references: [id])
-
-  @@unique([chatId, userId])
+  user              User      @relation(fields: [userId], references: [id])
 }
 
-model Message {
-  id        String    @id @default(uuid())
-  text      String
-  userId    String
-  chatId    String
-  createdAt DateTime  @default(now())
 
-  user      User      @relation(fields: [userId], references: [id])
-  chat      Chat      @relation(fields: [chatId], references: [id])
-}
+
