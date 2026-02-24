@@ -33,6 +33,7 @@ export type UserMinAggregateOutputType = {
   password: string | null
   role: $Enums.Role | null
   country: string | null
+  provider: $Enums.AuthProvider | null
 }
 
 export type UserMaxAggregateOutputType = {
@@ -44,6 +45,7 @@ export type UserMaxAggregateOutputType = {
   password: string | null
   role: $Enums.Role | null
   country: string | null
+  provider: $Enums.AuthProvider | null
 }
 
 export type UserCountAggregateOutputType = {
@@ -55,6 +57,7 @@ export type UserCountAggregateOutputType = {
   password: number
   role: number
   country: number
+  provider: number
   _all: number
 }
 
@@ -68,6 +71,7 @@ export type UserMinAggregateInputType = {
   password?: true
   role?: true
   country?: true
+  provider?: true
 }
 
 export type UserMaxAggregateInputType = {
@@ -79,6 +83,7 @@ export type UserMaxAggregateInputType = {
   password?: true
   role?: true
   country?: true
+  provider?: true
 }
 
 export type UserCountAggregateInputType = {
@@ -90,6 +95,7 @@ export type UserCountAggregateInputType = {
   password?: true
   role?: true
   country?: true
+  provider?: true
   _all?: true
 }
 
@@ -171,9 +177,10 @@ export type UserGroupByOutputType = {
   banner: string | null
   name: string
   email: string
-  password: string
+  password: string | null
   role: $Enums.Role
   country: string | null
+  provider: $Enums.AuthProvider
   _count: UserCountAggregateOutputType | null
   _min: UserMinAggregateOutputType | null
   _max: UserMaxAggregateOutputType | null
@@ -203,10 +210,17 @@ export type UserWhereInput = {
   banner?: Prisma.StringNullableFilter<"User"> | string | null
   name?: Prisma.StringFilter<"User"> | string
   email?: Prisma.StringFilter<"User"> | string
-  password?: Prisma.StringFilter<"User"> | string
+  password?: Prisma.StringNullableFilter<"User"> | string | null
   role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
   country?: Prisma.StringNullableFilter<"User"> | string | null
+  provider?: Prisma.EnumAuthProviderFilter<"User"> | $Enums.AuthProvider
+  comments?: Prisma.CommentsListRelationFilter
+  course?: Prisma.CourseListRelationFilter
+  favoriteCourse?: Prisma.FavoriteCourseListRelationFilter
   notification?: Prisma.NotificationListRelationFilter
+  groupUser?: Prisma.GroupUserListRelationFilter
+  message?: Prisma.MessageListRelationFilter
+  reviews?: Prisma.ReviewListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -215,26 +229,40 @@ export type UserOrderByWithRelationInput = {
   banner?: Prisma.SortOrderInput | Prisma.SortOrder
   name?: Prisma.SortOrder
   email?: Prisma.SortOrder
-  password?: Prisma.SortOrder
+  password?: Prisma.SortOrderInput | Prisma.SortOrder
   role?: Prisma.SortOrder
   country?: Prisma.SortOrderInput | Prisma.SortOrder
+  provider?: Prisma.SortOrder
+  comments?: Prisma.CommentsOrderByRelationAggregateInput
+  course?: Prisma.CourseOrderByRelationAggregateInput
+  favoriteCourse?: Prisma.FavoriteCourseOrderByRelationAggregateInput
   notification?: Prisma.NotificationOrderByRelationAggregateInput
+  groupUser?: Prisma.GroupUserOrderByRelationAggregateInput
+  message?: Prisma.MessageOrderByRelationAggregateInput
+  reviews?: Prisma.ReviewOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
   id?: string
-  name?: string
   email?: string
   AND?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   OR?: Prisma.UserWhereInput[]
   NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   avatar?: Prisma.StringNullableFilter<"User"> | string | null
   banner?: Prisma.StringNullableFilter<"User"> | string | null
-  password?: Prisma.StringFilter<"User"> | string
+  name?: Prisma.StringFilter<"User"> | string
+  password?: Prisma.StringNullableFilter<"User"> | string | null
   role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
   country?: Prisma.StringNullableFilter<"User"> | string | null
+  provider?: Prisma.EnumAuthProviderFilter<"User"> | $Enums.AuthProvider
+  comments?: Prisma.CommentsListRelationFilter
+  course?: Prisma.CourseListRelationFilter
+  favoriteCourse?: Prisma.FavoriteCourseListRelationFilter
   notification?: Prisma.NotificationListRelationFilter
-}, "id" | "name" | "email">
+  groupUser?: Prisma.GroupUserListRelationFilter
+  message?: Prisma.MessageListRelationFilter
+  reviews?: Prisma.ReviewListRelationFilter
+}, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -242,9 +270,10 @@ export type UserOrderByWithAggregationInput = {
   banner?: Prisma.SortOrderInput | Prisma.SortOrder
   name?: Prisma.SortOrder
   email?: Prisma.SortOrder
-  password?: Prisma.SortOrder
+  password?: Prisma.SortOrderInput | Prisma.SortOrder
   role?: Prisma.SortOrder
   country?: Prisma.SortOrderInput | Prisma.SortOrder
+  provider?: Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
   _max?: Prisma.UserMaxOrderByAggregateInput
   _min?: Prisma.UserMinOrderByAggregateInput
@@ -259,9 +288,10 @@ export type UserScalarWhereWithAggregatesInput = {
   banner?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   name?: Prisma.StringWithAggregatesFilter<"User"> | string
   email?: Prisma.StringWithAggregatesFilter<"User"> | string
-  password?: Prisma.StringWithAggregatesFilter<"User"> | string
+  password?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   role?: Prisma.EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
   country?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  provider?: Prisma.EnumAuthProviderWithAggregatesFilter<"User"> | $Enums.AuthProvider
 }
 
 export type UserCreateInput = {
@@ -270,10 +300,17 @@ export type UserCreateInput = {
   banner?: string | null
   name: string
   email: string
-  password: string
+  password?: string | null
   role?: $Enums.Role
   country?: string | null
+  provider?: $Enums.AuthProvider
+  comments?: Prisma.CommentsCreateNestedManyWithoutUserInput
+  course?: Prisma.CourseCreateNestedManyWithoutUserInput
+  favoriteCourse?: Prisma.FavoriteCourseCreateNestedManyWithoutUserInput
   notification?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  groupUser?: Prisma.GroupUserCreateNestedManyWithoutUserInput
+  message?: Prisma.MessageCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -282,10 +319,17 @@ export type UserUncheckedCreateInput = {
   banner?: string | null
   name: string
   email: string
-  password: string
+  password?: string | null
   role?: $Enums.Role
   country?: string | null
+  provider?: $Enums.AuthProvider
+  comments?: Prisma.CommentsUncheckedCreateNestedManyWithoutUserInput
+  course?: Prisma.CourseUncheckedCreateNestedManyWithoutUserInput
+  favoriteCourse?: Prisma.FavoriteCourseUncheckedCreateNestedManyWithoutUserInput
   notification?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  groupUser?: Prisma.GroupUserUncheckedCreateNestedManyWithoutUserInput
+  message?: Prisma.MessageUncheckedCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -294,10 +338,17 @@ export type UserUpdateInput = {
   banner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  comments?: Prisma.CommentsUpdateManyWithoutUserNestedInput
+  course?: Prisma.CourseUpdateManyWithoutUserNestedInput
+  favoriteCourse?: Prisma.FavoriteCourseUpdateManyWithoutUserNestedInput
   notification?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  groupUser?: Prisma.GroupUserUpdateManyWithoutUserNestedInput
+  message?: Prisma.MessageUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -306,10 +357,17 @@ export type UserUncheckedUpdateInput = {
   banner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  comments?: Prisma.CommentsUncheckedUpdateManyWithoutUserNestedInput
+  course?: Prisma.CourseUncheckedUpdateManyWithoutUserNestedInput
+  favoriteCourse?: Prisma.FavoriteCourseUncheckedUpdateManyWithoutUserNestedInput
   notification?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  groupUser?: Prisma.GroupUserUncheckedUpdateManyWithoutUserNestedInput
+  message?: Prisma.MessageUncheckedUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -318,9 +376,10 @@ export type UserCreateManyInput = {
   banner?: string | null
   name: string
   email: string
-  password: string
+  password?: string | null
   role?: $Enums.Role
   country?: string | null
+  provider?: $Enums.AuthProvider
 }
 
 export type UserUpdateManyMutationInput = {
@@ -329,9 +388,10 @@ export type UserUpdateManyMutationInput = {
   banner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
 }
 
 export type UserUncheckedUpdateManyInput = {
@@ -340,9 +400,10 @@ export type UserUncheckedUpdateManyInput = {
   banner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
 }
 
 export type UserCountOrderByAggregateInput = {
@@ -354,6 +415,7 @@ export type UserCountOrderByAggregateInput = {
   password?: Prisma.SortOrder
   role?: Prisma.SortOrder
   country?: Prisma.SortOrder
+  provider?: Prisma.SortOrder
 }
 
 export type UserMaxOrderByAggregateInput = {
@@ -365,6 +427,7 @@ export type UserMaxOrderByAggregateInput = {
   password?: Prisma.SortOrder
   role?: Prisma.SortOrder
   country?: Prisma.SortOrder
+  provider?: Prisma.SortOrder
 }
 
 export type UserMinOrderByAggregateInput = {
@@ -376,6 +439,7 @@ export type UserMinOrderByAggregateInput = {
   password?: Prisma.SortOrder
   role?: Prisma.SortOrder
   country?: Prisma.SortOrder
+  provider?: Prisma.SortOrder
 }
 
 export type UserScalarRelationFilter = {
@@ -395,6 +459,24 @@ export type EnumRoleFieldUpdateOperationsInput = {
   set?: $Enums.Role
 }
 
+export type EnumAuthProviderFieldUpdateOperationsInput = {
+  set?: $Enums.AuthProvider
+}
+
+export type UserCreateNestedOneWithoutFavoriteCourseInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutFavoriteCourseInput, Prisma.UserUncheckedCreateWithoutFavoriteCourseInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutFavoriteCourseInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutFavoriteCourseNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutFavoriteCourseInput, Prisma.UserUncheckedCreateWithoutFavoriteCourseInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutFavoriteCourseInput
+  upsert?: Prisma.UserUpsertWithoutFavoriteCourseInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutFavoriteCourseInput, Prisma.UserUpdateWithoutFavoriteCourseInput>, Prisma.UserUncheckedUpdateWithoutFavoriteCourseInput>
+}
+
 export type UserCreateNestedOneWithoutNotificationInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutNotificationInput, Prisma.UserUncheckedCreateWithoutNotificationInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutNotificationInput
@@ -409,15 +491,180 @@ export type UserUpdateOneRequiredWithoutNotificationNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutNotificationInput, Prisma.UserUpdateWithoutNotificationInput>, Prisma.UserUncheckedUpdateWithoutNotificationInput>
 }
 
+export type UserCreateNestedOneWithoutCourseInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCourseInput, Prisma.UserUncheckedCreateWithoutCourseInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCourseInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutCourseNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCourseInput, Prisma.UserUncheckedCreateWithoutCourseInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCourseInput
+  upsert?: Prisma.UserUpsertWithoutCourseInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCourseInput, Prisma.UserUpdateWithoutCourseInput>, Prisma.UserUncheckedUpdateWithoutCourseInput>
+}
+
+export type UserCreateNestedOneWithoutCommentsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCommentsInput, Prisma.UserUncheckedCreateWithoutCommentsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCommentsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutCommentsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCommentsInput, Prisma.UserUncheckedCreateWithoutCommentsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCommentsInput
+  upsert?: Prisma.UserUpsertWithoutCommentsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCommentsInput, Prisma.UserUpdateWithoutCommentsInput>, Prisma.UserUncheckedUpdateWithoutCommentsInput>
+}
+
+export type UserCreateNestedOneWithoutGroupUserInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutGroupUserInput, Prisma.UserUncheckedCreateWithoutGroupUserInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutGroupUserInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutGroupUserNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutGroupUserInput, Prisma.UserUncheckedCreateWithoutGroupUserInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutGroupUserInput
+  upsert?: Prisma.UserUpsertWithoutGroupUserInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutGroupUserInput, Prisma.UserUpdateWithoutGroupUserInput>, Prisma.UserUncheckedUpdateWithoutGroupUserInput>
+}
+
+export type UserCreateNestedOneWithoutMessageInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutMessageInput, Prisma.UserUncheckedCreateWithoutMessageInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutMessageInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutMessageNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutMessageInput, Prisma.UserUncheckedCreateWithoutMessageInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutMessageInput
+  upsert?: Prisma.UserUpsertWithoutMessageInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutMessageInput, Prisma.UserUpdateWithoutMessageInput>, Prisma.UserUncheckedUpdateWithoutMessageInput>
+}
+
+export type UserCreateNestedOneWithoutReviewsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutReviewsInput, Prisma.UserUncheckedCreateWithoutReviewsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutReviewsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutReviewsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutReviewsInput, Prisma.UserUncheckedCreateWithoutReviewsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutReviewsInput
+  upsert?: Prisma.UserUpsertWithoutReviewsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutReviewsInput, Prisma.UserUpdateWithoutReviewsInput>, Prisma.UserUncheckedUpdateWithoutReviewsInput>
+}
+
+export type UserCreateWithoutFavoriteCourseInput = {
+  id?: string
+  avatar?: string | null
+  banner?: string | null
+  name: string
+  email: string
+  password?: string | null
+  role?: $Enums.Role
+  country?: string | null
+  provider?: $Enums.AuthProvider
+  comments?: Prisma.CommentsCreateNestedManyWithoutUserInput
+  course?: Prisma.CourseCreateNestedManyWithoutUserInput
+  notification?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  groupUser?: Prisma.GroupUserCreateNestedManyWithoutUserInput
+  message?: Prisma.MessageCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutFavoriteCourseInput = {
+  id?: string
+  avatar?: string | null
+  banner?: string | null
+  name: string
+  email: string
+  password?: string | null
+  role?: $Enums.Role
+  country?: string | null
+  provider?: $Enums.AuthProvider
+  comments?: Prisma.CommentsUncheckedCreateNestedManyWithoutUserInput
+  course?: Prisma.CourseUncheckedCreateNestedManyWithoutUserInput
+  notification?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  groupUser?: Prisma.GroupUserUncheckedCreateNestedManyWithoutUserInput
+  message?: Prisma.MessageUncheckedCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutFavoriteCourseInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutFavoriteCourseInput, Prisma.UserUncheckedCreateWithoutFavoriteCourseInput>
+}
+
+export type UserUpsertWithoutFavoriteCourseInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutFavoriteCourseInput, Prisma.UserUncheckedUpdateWithoutFavoriteCourseInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutFavoriteCourseInput, Prisma.UserUncheckedCreateWithoutFavoriteCourseInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutFavoriteCourseInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutFavoriteCourseInput, Prisma.UserUncheckedUpdateWithoutFavoriteCourseInput>
+}
+
+export type UserUpdateWithoutFavoriteCourseInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  comments?: Prisma.CommentsUpdateManyWithoutUserNestedInput
+  course?: Prisma.CourseUpdateManyWithoutUserNestedInput
+  notification?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  groupUser?: Prisma.GroupUserUpdateManyWithoutUserNestedInput
+  message?: Prisma.MessageUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutFavoriteCourseInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  comments?: Prisma.CommentsUncheckedUpdateManyWithoutUserNestedInput
+  course?: Prisma.CourseUncheckedUpdateManyWithoutUserNestedInput
+  notification?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  groupUser?: Prisma.GroupUserUncheckedUpdateManyWithoutUserNestedInput
+  message?: Prisma.MessageUncheckedUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutUserNestedInput
+}
+
 export type UserCreateWithoutNotificationInput = {
   id?: string
   avatar?: string | null
   banner?: string | null
   name: string
   email: string
-  password: string
+  password?: string | null
   role?: $Enums.Role
   country?: string | null
+  provider?: $Enums.AuthProvider
+  comments?: Prisma.CommentsCreateNestedManyWithoutUserInput
+  course?: Prisma.CourseCreateNestedManyWithoutUserInput
+  favoriteCourse?: Prisma.FavoriteCourseCreateNestedManyWithoutUserInput
+  groupUser?: Prisma.GroupUserCreateNestedManyWithoutUserInput
+  message?: Prisma.MessageCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutNotificationInput = {
@@ -426,9 +673,16 @@ export type UserUncheckedCreateWithoutNotificationInput = {
   banner?: string | null
   name: string
   email: string
-  password: string
+  password?: string | null
   role?: $Enums.Role
   country?: string | null
+  provider?: $Enums.AuthProvider
+  comments?: Prisma.CommentsUncheckedCreateNestedManyWithoutUserInput
+  course?: Prisma.CourseUncheckedCreateNestedManyWithoutUserInput
+  favoriteCourse?: Prisma.FavoriteCourseUncheckedCreateNestedManyWithoutUserInput
+  groupUser?: Prisma.GroupUserUncheckedCreateNestedManyWithoutUserInput
+  message?: Prisma.MessageUncheckedCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutNotificationInput = {
@@ -453,9 +707,16 @@ export type UserUpdateWithoutNotificationInput = {
   banner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  comments?: Prisma.CommentsUpdateManyWithoutUserNestedInput
+  course?: Prisma.CourseUpdateManyWithoutUserNestedInput
+  favoriteCourse?: Prisma.FavoriteCourseUpdateManyWithoutUserNestedInput
+  groupUser?: Prisma.GroupUserUpdateManyWithoutUserNestedInput
+  message?: Prisma.MessageUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationInput = {
@@ -464,9 +725,456 @@ export type UserUncheckedUpdateWithoutNotificationInput = {
   banner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  comments?: Prisma.CommentsUncheckedUpdateManyWithoutUserNestedInput
+  course?: Prisma.CourseUncheckedUpdateManyWithoutUserNestedInput
+  favoriteCourse?: Prisma.FavoriteCourseUncheckedUpdateManyWithoutUserNestedInput
+  groupUser?: Prisma.GroupUserUncheckedUpdateManyWithoutUserNestedInput
+  message?: Prisma.MessageUncheckedUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutCourseInput = {
+  id?: string
+  avatar?: string | null
+  banner?: string | null
+  name: string
+  email: string
+  password?: string | null
+  role?: $Enums.Role
+  country?: string | null
+  provider?: $Enums.AuthProvider
+  comments?: Prisma.CommentsCreateNestedManyWithoutUserInput
+  favoriteCourse?: Prisma.FavoriteCourseCreateNestedManyWithoutUserInput
+  notification?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  groupUser?: Prisma.GroupUserCreateNestedManyWithoutUserInput
+  message?: Prisma.MessageCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutCourseInput = {
+  id?: string
+  avatar?: string | null
+  banner?: string | null
+  name: string
+  email: string
+  password?: string | null
+  role?: $Enums.Role
+  country?: string | null
+  provider?: $Enums.AuthProvider
+  comments?: Prisma.CommentsUncheckedCreateNestedManyWithoutUserInput
+  favoriteCourse?: Prisma.FavoriteCourseUncheckedCreateNestedManyWithoutUserInput
+  notification?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  groupUser?: Prisma.GroupUserUncheckedCreateNestedManyWithoutUserInput
+  message?: Prisma.MessageUncheckedCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutCourseInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutCourseInput, Prisma.UserUncheckedCreateWithoutCourseInput>
+}
+
+export type UserUpsertWithoutCourseInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutCourseInput, Prisma.UserUncheckedUpdateWithoutCourseInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutCourseInput, Prisma.UserUncheckedCreateWithoutCourseInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutCourseInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutCourseInput, Prisma.UserUncheckedUpdateWithoutCourseInput>
+}
+
+export type UserUpdateWithoutCourseInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  comments?: Prisma.CommentsUpdateManyWithoutUserNestedInput
+  favoriteCourse?: Prisma.FavoriteCourseUpdateManyWithoutUserNestedInput
+  notification?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  groupUser?: Prisma.GroupUserUpdateManyWithoutUserNestedInput
+  message?: Prisma.MessageUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutCourseInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  comments?: Prisma.CommentsUncheckedUpdateManyWithoutUserNestedInput
+  favoriteCourse?: Prisma.FavoriteCourseUncheckedUpdateManyWithoutUserNestedInput
+  notification?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  groupUser?: Prisma.GroupUserUncheckedUpdateManyWithoutUserNestedInput
+  message?: Prisma.MessageUncheckedUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutCommentsInput = {
+  id?: string
+  avatar?: string | null
+  banner?: string | null
+  name: string
+  email: string
+  password?: string | null
+  role?: $Enums.Role
+  country?: string | null
+  provider?: $Enums.AuthProvider
+  course?: Prisma.CourseCreateNestedManyWithoutUserInput
+  favoriteCourse?: Prisma.FavoriteCourseCreateNestedManyWithoutUserInput
+  notification?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  groupUser?: Prisma.GroupUserCreateNestedManyWithoutUserInput
+  message?: Prisma.MessageCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutCommentsInput = {
+  id?: string
+  avatar?: string | null
+  banner?: string | null
+  name: string
+  email: string
+  password?: string | null
+  role?: $Enums.Role
+  country?: string | null
+  provider?: $Enums.AuthProvider
+  course?: Prisma.CourseUncheckedCreateNestedManyWithoutUserInput
+  favoriteCourse?: Prisma.FavoriteCourseUncheckedCreateNestedManyWithoutUserInput
+  notification?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  groupUser?: Prisma.GroupUserUncheckedCreateNestedManyWithoutUserInput
+  message?: Prisma.MessageUncheckedCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutCommentsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutCommentsInput, Prisma.UserUncheckedCreateWithoutCommentsInput>
+}
+
+export type UserUpsertWithoutCommentsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutCommentsInput, Prisma.UserUncheckedUpdateWithoutCommentsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutCommentsInput, Prisma.UserUncheckedCreateWithoutCommentsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutCommentsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutCommentsInput, Prisma.UserUncheckedUpdateWithoutCommentsInput>
+}
+
+export type UserUpdateWithoutCommentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  course?: Prisma.CourseUpdateManyWithoutUserNestedInput
+  favoriteCourse?: Prisma.FavoriteCourseUpdateManyWithoutUserNestedInput
+  notification?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  groupUser?: Prisma.GroupUserUpdateManyWithoutUserNestedInput
+  message?: Prisma.MessageUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutCommentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  course?: Prisma.CourseUncheckedUpdateManyWithoutUserNestedInput
+  favoriteCourse?: Prisma.FavoriteCourseUncheckedUpdateManyWithoutUserNestedInput
+  notification?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  groupUser?: Prisma.GroupUserUncheckedUpdateManyWithoutUserNestedInput
+  message?: Prisma.MessageUncheckedUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutGroupUserInput = {
+  id?: string
+  avatar?: string | null
+  banner?: string | null
+  name: string
+  email: string
+  password?: string | null
+  role?: $Enums.Role
+  country?: string | null
+  provider?: $Enums.AuthProvider
+  comments?: Prisma.CommentsCreateNestedManyWithoutUserInput
+  course?: Prisma.CourseCreateNestedManyWithoutUserInput
+  favoriteCourse?: Prisma.FavoriteCourseCreateNestedManyWithoutUserInput
+  notification?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  message?: Prisma.MessageCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutGroupUserInput = {
+  id?: string
+  avatar?: string | null
+  banner?: string | null
+  name: string
+  email: string
+  password?: string | null
+  role?: $Enums.Role
+  country?: string | null
+  provider?: $Enums.AuthProvider
+  comments?: Prisma.CommentsUncheckedCreateNestedManyWithoutUserInput
+  course?: Prisma.CourseUncheckedCreateNestedManyWithoutUserInput
+  favoriteCourse?: Prisma.FavoriteCourseUncheckedCreateNestedManyWithoutUserInput
+  notification?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  message?: Prisma.MessageUncheckedCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutGroupUserInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutGroupUserInput, Prisma.UserUncheckedCreateWithoutGroupUserInput>
+}
+
+export type UserUpsertWithoutGroupUserInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutGroupUserInput, Prisma.UserUncheckedUpdateWithoutGroupUserInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutGroupUserInput, Prisma.UserUncheckedCreateWithoutGroupUserInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutGroupUserInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutGroupUserInput, Prisma.UserUncheckedUpdateWithoutGroupUserInput>
+}
+
+export type UserUpdateWithoutGroupUserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  comments?: Prisma.CommentsUpdateManyWithoutUserNestedInput
+  course?: Prisma.CourseUpdateManyWithoutUserNestedInput
+  favoriteCourse?: Prisma.FavoriteCourseUpdateManyWithoutUserNestedInput
+  notification?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  message?: Prisma.MessageUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutGroupUserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  comments?: Prisma.CommentsUncheckedUpdateManyWithoutUserNestedInput
+  course?: Prisma.CourseUncheckedUpdateManyWithoutUserNestedInput
+  favoriteCourse?: Prisma.FavoriteCourseUncheckedUpdateManyWithoutUserNestedInput
+  notification?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  message?: Prisma.MessageUncheckedUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutMessageInput = {
+  id?: string
+  avatar?: string | null
+  banner?: string | null
+  name: string
+  email: string
+  password?: string | null
+  role?: $Enums.Role
+  country?: string | null
+  provider?: $Enums.AuthProvider
+  comments?: Prisma.CommentsCreateNestedManyWithoutUserInput
+  course?: Prisma.CourseCreateNestedManyWithoutUserInput
+  favoriteCourse?: Prisma.FavoriteCourseCreateNestedManyWithoutUserInput
+  notification?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  groupUser?: Prisma.GroupUserCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutMessageInput = {
+  id?: string
+  avatar?: string | null
+  banner?: string | null
+  name: string
+  email: string
+  password?: string | null
+  role?: $Enums.Role
+  country?: string | null
+  provider?: $Enums.AuthProvider
+  comments?: Prisma.CommentsUncheckedCreateNestedManyWithoutUserInput
+  course?: Prisma.CourseUncheckedCreateNestedManyWithoutUserInput
+  favoriteCourse?: Prisma.FavoriteCourseUncheckedCreateNestedManyWithoutUserInput
+  notification?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  groupUser?: Prisma.GroupUserUncheckedCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutMessageInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutMessageInput, Prisma.UserUncheckedCreateWithoutMessageInput>
+}
+
+export type UserUpsertWithoutMessageInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutMessageInput, Prisma.UserUncheckedUpdateWithoutMessageInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutMessageInput, Prisma.UserUncheckedCreateWithoutMessageInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutMessageInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutMessageInput, Prisma.UserUncheckedUpdateWithoutMessageInput>
+}
+
+export type UserUpdateWithoutMessageInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  comments?: Prisma.CommentsUpdateManyWithoutUserNestedInput
+  course?: Prisma.CourseUpdateManyWithoutUserNestedInput
+  favoriteCourse?: Prisma.FavoriteCourseUpdateManyWithoutUserNestedInput
+  notification?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  groupUser?: Prisma.GroupUserUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutMessageInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  comments?: Prisma.CommentsUncheckedUpdateManyWithoutUserNestedInput
+  course?: Prisma.CourseUncheckedUpdateManyWithoutUserNestedInput
+  favoriteCourse?: Prisma.FavoriteCourseUncheckedUpdateManyWithoutUserNestedInput
+  notification?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  groupUser?: Prisma.GroupUserUncheckedUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutReviewsInput = {
+  id?: string
+  avatar?: string | null
+  banner?: string | null
+  name: string
+  email: string
+  password?: string | null
+  role?: $Enums.Role
+  country?: string | null
+  provider?: $Enums.AuthProvider
+  comments?: Prisma.CommentsCreateNestedManyWithoutUserInput
+  course?: Prisma.CourseCreateNestedManyWithoutUserInput
+  favoriteCourse?: Prisma.FavoriteCourseCreateNestedManyWithoutUserInput
+  notification?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  groupUser?: Prisma.GroupUserCreateNestedManyWithoutUserInput
+  message?: Prisma.MessageCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutReviewsInput = {
+  id?: string
+  avatar?: string | null
+  banner?: string | null
+  name: string
+  email: string
+  password?: string | null
+  role?: $Enums.Role
+  country?: string | null
+  provider?: $Enums.AuthProvider
+  comments?: Prisma.CommentsUncheckedCreateNestedManyWithoutUserInput
+  course?: Prisma.CourseUncheckedCreateNestedManyWithoutUserInput
+  favoriteCourse?: Prisma.FavoriteCourseUncheckedCreateNestedManyWithoutUserInput
+  notification?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  groupUser?: Prisma.GroupUserUncheckedCreateNestedManyWithoutUserInput
+  message?: Prisma.MessageUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutReviewsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutReviewsInput, Prisma.UserUncheckedCreateWithoutReviewsInput>
+}
+
+export type UserUpsertWithoutReviewsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutReviewsInput, Prisma.UserUncheckedUpdateWithoutReviewsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutReviewsInput, Prisma.UserUncheckedCreateWithoutReviewsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutReviewsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutReviewsInput, Prisma.UserUncheckedUpdateWithoutReviewsInput>
+}
+
+export type UserUpdateWithoutReviewsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  comments?: Prisma.CommentsUpdateManyWithoutUserNestedInput
+  course?: Prisma.CourseUpdateManyWithoutUserNestedInput
+  favoriteCourse?: Prisma.FavoriteCourseUpdateManyWithoutUserNestedInput
+  notification?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  groupUser?: Prisma.GroupUserUpdateManyWithoutUserNestedInput
+  message?: Prisma.MessageUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutReviewsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  comments?: Prisma.CommentsUncheckedUpdateManyWithoutUserNestedInput
+  course?: Prisma.CourseUncheckedUpdateManyWithoutUserNestedInput
+  favoriteCourse?: Prisma.FavoriteCourseUncheckedUpdateManyWithoutUserNestedInput
+  notification?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  groupUser?: Prisma.GroupUserUncheckedUpdateManyWithoutUserNestedInput
+  message?: Prisma.MessageUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -475,11 +1183,23 @@ export type UserUncheckedUpdateWithoutNotificationInput = {
  */
 
 export type UserCountOutputType = {
+  comments: number
+  course: number
+  favoriteCourse: number
   notification: number
+  groupUser: number
+  message: number
+  reviews: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  comments?: boolean | UserCountOutputTypeCountCommentsArgs
+  course?: boolean | UserCountOutputTypeCountCourseArgs
+  favoriteCourse?: boolean | UserCountOutputTypeCountFavoriteCourseArgs
   notification?: boolean | UserCountOutputTypeCountNotificationArgs
+  groupUser?: boolean | UserCountOutputTypeCountGroupUserArgs
+  message?: boolean | UserCountOutputTypeCountMessageArgs
+  reviews?: boolean | UserCountOutputTypeCountReviewsArgs
 }
 
 /**
@@ -495,8 +1215,50 @@ export type UserCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensi
 /**
  * UserCountOutputType without action
  */
+export type UserCountOutputTypeCountCommentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CommentsWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountCourseArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CourseWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountFavoriteCourseArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.FavoriteCourseWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
 export type UserCountOutputTypeCountNotificationArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.NotificationWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountGroupUserArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.GroupUserWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountMessageArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.MessageWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountReviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ReviewWhereInput
 }
 
 
@@ -509,7 +1271,14 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   password?: boolean
   role?: boolean
   country?: boolean
+  provider?: boolean
+  comments?: boolean | Prisma.User$commentsArgs<ExtArgs>
+  course?: boolean | Prisma.User$courseArgs<ExtArgs>
+  favoriteCourse?: boolean | Prisma.User$favoriteCourseArgs<ExtArgs>
   notification?: boolean | Prisma.User$notificationArgs<ExtArgs>
+  groupUser?: boolean | Prisma.User$groupUserArgs<ExtArgs>
+  message?: boolean | Prisma.User$messageArgs<ExtArgs>
+  reviews?: boolean | Prisma.User$reviewsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -522,6 +1291,7 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   password?: boolean
   role?: boolean
   country?: boolean
+  provider?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -533,6 +1303,7 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   password?: boolean
   role?: boolean
   country?: boolean
+  provider?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectScalar = {
@@ -544,11 +1315,18 @@ export type UserSelectScalar = {
   password?: boolean
   role?: boolean
   country?: boolean
+  provider?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "avatar" | "banner" | "name" | "email" | "password" | "role" | "country", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "avatar" | "banner" | "name" | "email" | "password" | "role" | "country" | "provider", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  comments?: boolean | Prisma.User$commentsArgs<ExtArgs>
+  course?: boolean | Prisma.User$courseArgs<ExtArgs>
+  favoriteCourse?: boolean | Prisma.User$favoriteCourseArgs<ExtArgs>
   notification?: boolean | Prisma.User$notificationArgs<ExtArgs>
+  groupUser?: boolean | Prisma.User$groupUserArgs<ExtArgs>
+  message?: boolean | Prisma.User$messageArgs<ExtArgs>
+  reviews?: boolean | Prisma.User$reviewsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -557,7 +1335,13 @@ export type UserIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
 export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "User"
   objects: {
+    comments: Prisma.$CommentsPayload<ExtArgs>[]
+    course: Prisma.$CoursePayload<ExtArgs>[]
+    favoriteCourse: Prisma.$FavoriteCoursePayload<ExtArgs>[]
     notification: Prisma.$NotificationPayload<ExtArgs>[]
+    groupUser: Prisma.$GroupUserPayload<ExtArgs>[]
+    message: Prisma.$MessagePayload<ExtArgs>[]
+    reviews: Prisma.$ReviewPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -565,9 +1349,10 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     banner: string | null
     name: string
     email: string
-    password: string
+    password: string | null
     role: $Enums.Role
     country: string | null
+    provider: $Enums.AuthProvider
   }, ExtArgs["result"]["user"]>
   composites: {}
 }
@@ -962,7 +1747,13 @@ readonly fields: UserFieldRefs;
  */
 export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  comments<T extends Prisma.User$commentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$commentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CommentsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  course<T extends Prisma.User$courseArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$courseArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CoursePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  favoriteCourse<T extends Prisma.User$favoriteCourseArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$favoriteCourseArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FavoriteCoursePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   notification<T extends Prisma.User$notificationArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$notificationArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  groupUser<T extends Prisma.User$groupUserArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$groupUserArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GroupUserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  message<T extends Prisma.User$messageArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$messageArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  reviews<T extends Prisma.User$reviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1000,6 +1791,7 @@ export interface UserFieldRefs {
   readonly password: Prisma.FieldRef<"User", 'String'>
   readonly role: Prisma.FieldRef<"User", 'Role'>
   readonly country: Prisma.FieldRef<"User", 'String'>
+  readonly provider: Prisma.FieldRef<"User", 'AuthProvider'>
 }
     
 
@@ -1388,6 +2180,78 @@ export type UserDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
 }
 
 /**
+ * User.comments
+ */
+export type User$commentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Comments
+   */
+  select?: Prisma.CommentsSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Comments
+   */
+  omit?: Prisma.CommentsOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CommentsInclude<ExtArgs> | null
+  where?: Prisma.CommentsWhereInput
+  orderBy?: Prisma.CommentsOrderByWithRelationInput | Prisma.CommentsOrderByWithRelationInput[]
+  cursor?: Prisma.CommentsWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CommentsScalarFieldEnum | Prisma.CommentsScalarFieldEnum[]
+}
+
+/**
+ * User.course
+ */
+export type User$courseArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Course
+   */
+  select?: Prisma.CourseSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Course
+   */
+  omit?: Prisma.CourseOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CourseInclude<ExtArgs> | null
+  where?: Prisma.CourseWhereInput
+  orderBy?: Prisma.CourseOrderByWithRelationInput | Prisma.CourseOrderByWithRelationInput[]
+  cursor?: Prisma.CourseWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CourseScalarFieldEnum | Prisma.CourseScalarFieldEnum[]
+}
+
+/**
+ * User.favoriteCourse
+ */
+export type User$favoriteCourseArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the FavoriteCourse
+   */
+  select?: Prisma.FavoriteCourseSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the FavoriteCourse
+   */
+  omit?: Prisma.FavoriteCourseOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FavoriteCourseInclude<ExtArgs> | null
+  where?: Prisma.FavoriteCourseWhereInput
+  orderBy?: Prisma.FavoriteCourseOrderByWithRelationInput | Prisma.FavoriteCourseOrderByWithRelationInput[]
+  cursor?: Prisma.FavoriteCourseWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.FavoriteCourseScalarFieldEnum | Prisma.FavoriteCourseScalarFieldEnum[]
+}
+
+/**
  * User.notification
  */
 export type User$notificationArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1409,6 +2273,78 @@ export type User$notificationArgs<ExtArgs extends runtime.Types.Extensions.Inter
   take?: number
   skip?: number
   distinct?: Prisma.NotificationScalarFieldEnum | Prisma.NotificationScalarFieldEnum[]
+}
+
+/**
+ * User.groupUser
+ */
+export type User$groupUserArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the GroupUser
+   */
+  select?: Prisma.GroupUserSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the GroupUser
+   */
+  omit?: Prisma.GroupUserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.GroupUserInclude<ExtArgs> | null
+  where?: Prisma.GroupUserWhereInput
+  orderBy?: Prisma.GroupUserOrderByWithRelationInput | Prisma.GroupUserOrderByWithRelationInput[]
+  cursor?: Prisma.GroupUserWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.GroupUserScalarFieldEnum | Prisma.GroupUserScalarFieldEnum[]
+}
+
+/**
+ * User.message
+ */
+export type User$messageArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Message
+   */
+  select?: Prisma.MessageSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Message
+   */
+  omit?: Prisma.MessageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MessageInclude<ExtArgs> | null
+  where?: Prisma.MessageWhereInput
+  orderBy?: Prisma.MessageOrderByWithRelationInput | Prisma.MessageOrderByWithRelationInput[]
+  cursor?: Prisma.MessageWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.MessageScalarFieldEnum | Prisma.MessageScalarFieldEnum[]
+}
+
+/**
+ * User.reviews
+ */
+export type User$reviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Review
+   */
+  select?: Prisma.ReviewSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Review
+   */
+  omit?: Prisma.ReviewOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ReviewInclude<ExtArgs> | null
+  where?: Prisma.ReviewWhereInput
+  orderBy?: Prisma.ReviewOrderByWithRelationInput | Prisma.ReviewOrderByWithRelationInput[]
+  cursor?: Prisma.ReviewWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ReviewScalarFieldEnum | Prisma.ReviewScalarFieldEnum[]
 }
 
 /**

@@ -43,7 +43,57 @@ export { Prisma }
  */
 export type User = Prisma.UserModel
 /**
+ * Model FavoriteCourse
+ * 
+ */
+export type FavoriteCourse = Prisma.FavoriteCourseModel
+/**
  * Model Notification
  * 
  */
 export type Notification = Prisma.NotificationModel
+/**
+ * Model Course
+ * 
+ */
+export type Course = Prisma.CourseModel
+/**
+ * Model Category
+ * 
+ */
+export type Category = Prisma.CategoryModel
+/**
+ * Model Lessons
+ * 
+ */
+export type Lessons = Prisma.LessonsModel
+/**
+ * Model Video
+ * 
+ */
+export type Video = Prisma.VideoModel
+/**
+ * Model Comments
+ * 
+ */
+export type Comments = Prisma.CommentsModel
+/**
+ * Model Chat
+ * 
+ */
+export type Chat = Prisma.ChatModel
+/**
+ * Model GroupUser
+ * 
+ */
+export type GroupUser = Prisma.GroupUserModel
+/**
+ * Model Message
+ * 
+ */
+export type Message = Prisma.MessageModel
+/**
+ * Model Review
+ * 
+ */
+export type Review = Prisma.ReviewModel

@@ -1,6 +1,6 @@
 generator client {
   provider = "prisma-client"
-    output   = "../src/generated/prisma"
+  output   = "../src/generated/prisma"
 }
 
 datasource db {
@@ -8,15 +8,33 @@ datasource db {
 }
 
 model User {
-  id           String         @id @default(uuid())
-  avatar       String?
-  banner       String?
-  name         String         @unique
-  email        String         @unique
-  password     String
-  role         Role           @default(STUDENT)
-  country      String?
-  notification Notification[]
+  id             String           @id @default(uuid())
+  avatar         String?
+  banner         String?
+  name           String
+  email          String           @unique
+  password       String?
+  role           Role             @default(STUDENT)
+  country        String?
+  provider       AuthProvider     @default(LOCAL)
+  comments       Comments[]
+  course         Course[]
+  favoriteCourse FavoriteCourse[]
+  notification   Notification[]
+  groupUser      GroupUser[]
+  message        Message[]
+  reviews        Review[]
+}
+
+model FavoriteCourse {
+  id        Int      @id @default(autoincrement())
+  userId    String
+  courseId  String
+  createdAt DateTime @default(now())
+  course    Course   @relation(fields: [courseId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
+
+  @@unique([userId, courseId])
 }
 
 model Notification {
@@ -28,7 +46,112 @@ model Notification {
   user      User     @relation(fields: [userId], references: [id])
 }
 
+model Course {
+  id             String           @id @default(uuid())
+  theme          String
+  description    String
+  title          String
+  userId         String
+  bottomText     String
+  createdAt      DateTime         @default(now())
+  image          String
+  price          Int
+  section        Json
+  category       String?
+  user           User             @relation(fields: [userId], references: [id])
+  favoriteCourse FavoriteCourse[]
+  lessons        Lessons[]
+}
+
+model Category {
+  id   String @id @default(uuid())
+  type String
+  name String
+}
+
+model Lessons {
+  id       Int     @id @default(autoincrement())
+  title    String
+  courseId String
+  course   Course  @relation(fields: [courseId], references: [id])
+  videos   Video[]
+}
+
+model Video {
+  id        Int        @id @default(autoincrement())
+  title     String
+  preview   String?
+  videoUrl  String
+  duration  Int
+  lessonsId Int
+  views     Int        @default(0)
+  comments  Comments[]
+  lessons   Lessons    @relation(fields: [lessonsId], references: [id])
+}
+
+model Comments {
+  id        String   @id @default(uuid())
+  text      String
+  timestamp Int
+  userId    String
+  videoId   Int
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+  video     Video    @relation(fields: [videoId], references: [id])
+}
+
+enum AuthProvider {
+  LOCAL
+  GOOGLE
+}
+
 enum Role {
   STUDENT
   OWNER
 }
+
+model Chat {
+  id        String      @id @default(uuid())
+  title     String
+  avatar    String?
+  isGroup   Boolean     @default(true)
+  createdAt DateTime    @default(now())
+
+  messages  Message[]
+  users     GroupUser[]
+}
+
+model GroupUser {
+  id      String  @id @default(uuid())
+  chatId  String
+  userId  String
+
+  chat    Chat    @relation(fields: [chatId], references: [id])
+  user    User    @relation(fields: [userId], references: [id])
+
+  @@unique([chatId, userId])
+}
+
+model Message {
+  id        String    @id @default(uuid())
+  text      String
+  userId    String
+  chatId    String
+  createdAt DateTime  @default(now())
+
+  user      User      @relation(fields: [userId], references: [id])
+  chat      Chat      @relation(fields: [chatId], references: [id])
+}
+
+
+model Review {
+  id                String  @id @default(uuid())
+  rating            Int
+  text              String
+  createdAt         DateTime  @default(now())
+  userId            String
+  user              User      @relation(fields: [userId], references: [id])
+}
+
+
+
